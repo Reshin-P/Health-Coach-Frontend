@@ -10,8 +10,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT,TRAINER } from '../../constances/HomePageConstants'
-import { ADDWORKOUTS,MANAGEWORKOUTS } from '../../constances/CommonConstants';
+import { PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../../constances/HomePageConstants'
+import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
 import { Link } from 'react-router-dom';
 
 
@@ -30,8 +30,8 @@ const HeaderTrainer = () => {
     setAnchorEl(null);
   };
 
-  const logout=()=>{
-      
+  const logout = () => {
+
   }
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -55,7 +55,7 @@ const HeaderTrainer = () => {
   };
   return (
     <AppBar className='main_header' position="static">
-       <Menu
+      <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
         anchorEl={anchorEl}
@@ -72,7 +72,7 @@ const HeaderTrainer = () => {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-       
+
       </Menu>
 
       <Menu
@@ -90,126 +90,126 @@ const HeaderTrainer = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>{ADDWORKOUTS}</MenuItem>
+        <Link style={{ textDecorationLine: "none", color: 'black' }} to={'/AddWorkoutScreen'} >   <MenuItem onClick={handleClose}>{ADDWORKOUTS}</MenuItem></Link>
         <MenuItem onClick={handleClose}>{MANAGEWORKOUTS}</MenuItem>
 
       </Menu>
 
-      
 
-    <Toolbar className='header mx-5' disableGutters>
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
-        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-      >
-        <Link to={'/'}> <img alt='' height={'100px'} src='/images/profile/logo.png'></img></Link>
-      </Typography>
 
-      <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleOpenNavMenu}
-          color="inherit"
+      <Toolbar className='header mx-5' disableGutters>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
         >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorElNav}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          open={Boolean(anchorElNav)}
-          onClose={handleCloseNavMenu}
-          sx={{
-            display: { xs: 'block', md: 'none' },
-          }}
+          <Link to={'/'}> <img alt='' height={'100px'} src='/images/profile/logo.png'></img></Link>
+        </Typography>
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: 'block', md: 'none' },
+            }}
+          >
+
+            <MenuItem onClick={handleCloseNavMenu}>
+              <Typography className='text-dar' textAlign="center">fdfdff</Typography>
+            </MenuItem>
+
+          </Menu>
+        </Box>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
         >
+          LOGO
+        </Typography>
+        <Box sx={{ justifyContent: 'center', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
-          <MenuItem onClick={handleCloseNavMenu}>
-            <Typography className='text-dar' textAlign="center">fdfdff</Typography>
-          </MenuItem>
+          <Button
 
-        </Menu>
-      </Box>
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
-        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-      >
-        LOGO
-      </Typography>
-      <Box sx={{ justifyContent: 'center', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            onClick={handleClick}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {WORKOUTS}
+          </Button>
+          <Button
 
-        <Button
+            onClick={handleClick2}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {PROGRAMS}
+          </Button>
+          <Button
 
-          onClick={handleClick}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {WORKOUTS}
-        </Button>
-        <Button
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {WORKOUTS}
+          </Button>
+          <Button
 
-          onClick={handleClick2}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {PROGRAMS}
-        </Button>
-        <Button
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {BLOG}
+          </Button>
+          <Button
 
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {WORKOUTS}
-        </Button>
-        <Button
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {ABOUT}
+          </Button>
+          <Link to={'/trainer-signup'} style={{ textDecorationLine: "none" }}><Button
 
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {BLOG}
-        </Button>
-        <Button
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {TRAINER}
+          </Button>
+          </Link>
+        </Box>
 
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {ABOUT}
-        </Button>
-        <Link to={'/trainer-signup'}  style={{textDecorationLine:"none"}}><Button
-
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: 'black', display: 'block' }}
-        >
-          {TRAINER}
-        </Button></Link>
-
-
-      </Box>
-      {/* {user && <Typography className='username'>{user.name}</Typography>}
+        {/* {user && <Typography className='username'>{user.name}</Typography>}
       {!user && <Link to={'/login'} >  <Button sx={{ marginRight: "9px" }} variant="outlined" >
         Login
       </Button></Link>} */}
-      {/* {!user && <Link to={'/signup'}><Button sx={{ marginRight: "9px" }} variant="outlined" >
+        {/* {!user && <Link to={'/signup'}><Button sx={{ marginRight: "9px" }} variant="outlined" >
         Signup
       </Button></Link>} */}
-      {/* {user && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
+        {/* {user && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
         Logout
       </Button>} */}
 
-     
+
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -255,9 +255,9 @@ const HeaderTrainer = () => {
 
           </Menu>
         </Box>
-      
-    </Toolbar>
-  </AppBar>
+
+      </Toolbar>
+    </AppBar>
   )
 }
 

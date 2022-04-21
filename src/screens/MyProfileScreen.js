@@ -6,11 +6,11 @@ import MyProfile from '../components/MyProfile'
 
 const MyProfileScreen = () => {
   return (
-  <>
-  <Header/>
-  <MyProfile/>
-  <Footer/>
-  </>
+    <>
+      <Header />
+      <MyProfile />
+      <Footer />
+    </>
   )
 }
 

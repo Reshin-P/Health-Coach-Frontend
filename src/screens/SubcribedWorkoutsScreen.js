@@ -1,10 +1,10 @@
+import { Paper } from '@mui/material'
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import SubcribedVIdeo from '../components/SubcribedVIdeo'
+import Footer from "../components/Footer"
 import Header from '../components/Header'
-import { Paper } from '@mui/material'
+import SubcribedVIdeo from '../components/SubcribedVIdeo'
 import SubcribedWorkoutDiet from '../components/SubcribedWorkoutDiet'
-import Footer from "../components/Footer";
 
 
 const SubcribedWorkouts = () => {

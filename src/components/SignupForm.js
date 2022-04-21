@@ -22,7 +22,7 @@ const SignupForm = () => {
 
  
     try{
-      let response = await axios.post('/signup', { name, email, phone,username, password,age,weight,height,healthcondition })
+      let response = await axios.post('/user', { name, email, phone,username, password,age,weight,height,healthcondition })
         console.log("responsee");
         console.log(response);
        if(response.data)

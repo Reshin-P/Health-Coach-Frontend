@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderTrainer from '../../components/Trainer/HeaderTrainer'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
 const TrainerHomepageScreen = () => {
   const navigate=useNavigate()
@@ -15,7 +16,9 @@ navigate('/trainerlogin')
   return (
     <div>
       <HeaderTrainer/>
-      TrainerHomepageScreen
+      <Container>
+        <h1>TrainerHomepageScreen</h1>
+      </Container>
     </div>
   )
 }

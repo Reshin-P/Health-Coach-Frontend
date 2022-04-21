@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import './Header.css'
 import { Link } from 'react-router-dom';
-import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT,TRAINER } from '../constances/HomePageConstants'
+import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../constances/HomePageConstants'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -29,9 +29,7 @@ const ResponsiveAppBar = () => {
     }
   }, [])
   const logout = () => {
-    console.log("logout Reached");
     localStorage.clear("userInfo");
-    console.log("dddddddddddd");
     navigate('/');
   };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -96,41 +94,41 @@ const ResponsiveAppBar = () => {
           >
 
             <MenuItem onClick={handleCloseNavMenu}>
-            <Button
+              <Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{FREE_WORKOUTS}
-</Button>
-<Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {FREE_WORKOUTS}
+              </Button>
+              <Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{PROGRAMS}
-</Button>
-<Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {PROGRAMS}
+              </Button>
+              <Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{WORKOUTS}
-</Button>
-<Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {WORKOUTS}
+              </Button>
+              <Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{BLOG}
-</Button>
-<Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {BLOG}
+              </Button>
+              <Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{ABOUT}
-</Button>
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+              >
+                {ABOUT}
+              </Button>
             </MenuItem>
 
           </Menu>
@@ -180,21 +178,21 @@ sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {ABOUT}
           </Button>
-         {!user&& <Link to={'/trainerLogin'}  style={{textDecorationLine:"none"}}><Button
+          {!user && <Link to={'/trainerLogin'} style={{ textDecorationLine: "none" }}><Button
 
-onClick={handleCloseNavMenu}
-sx={{ my: 2, color: 'black', display: 'block' }}
->
-{TRAINER}
-</Button></Link>}
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'black', display: 'block' }}
+          >
+            {TRAINER}
+          </Button></Link>}
 
 
         </Box>
         {user && <Typography className='username'>{user.name}</Typography>}
-        {!user && <Link to={'/login'} style={{textDecorationLine:'none'}} >  <Button sx={{ marginRight: "9px" }} variant="outlined" >
+        {!user && <Link to={'/login'} style={{ textDecorationLine: 'none' }} >  <Button sx={{ marginRight: "9px" }} variant="outlined" >
           Login
         </Button></Link>}
-        {!user && <Link to={'/signup'}  style={{textDecorationLine:'none'}}><Button sx={{ marginRight: "9px" }} variant="outlined" >
+        {!user && <Link to={'/signup'} style={{ textDecorationLine: 'none' }}><Button sx={{ marginRight: "9px" }} variant="outlined" >
           Signup
         </Button></Link>}
         {/* {user && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >

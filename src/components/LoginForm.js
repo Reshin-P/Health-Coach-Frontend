@@ -23,7 +23,7 @@ function TrainerLogin() {
     const FormSubmit = async (input) => {
         console.log(input);
         try {
-            const response = await axios.post('/login', { username, password })
+            const response = await axios.post('/user/login', { username, password })
             console.log(response);
             if (response.data) {
                 localStorage.setItem('userInfo', JSON.stringify(response))

@@ -1,17 +1,18 @@
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
-import SignupScreen from "./screens/SignupScreen";
 import LoginScreen from "./screens/LoginScreen";
-import ProgramWiseScreen from "./screens/ProgramWiseScreen";
-import TrainerScreen from "./screens/TrainerScreen";
-import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SubcribedWorkouts from "./screens/SubcribedWorkoutsScreen";
-import MyWorkoutsScreen from "./screens/MyWorkoutsScreen";
 import MyProfileScreen from './screens/MyProfileScreen';
-import TrainerSignupScreen from "./screens/Trainer/TrainerSignupScreen";
-import TrainerLoginScreen from "./screens/Trainer/TrainerLoginScreen";
+import MyWorkoutsScreen from "./screens/MyWorkoutsScreen";
+import ProgramWiseScreen from "./screens/ProgramWiseScreen";
+import SignupScreen from "./screens/SignupScreen";
+import SubcribedWorkouts from "./screens/SubcribedWorkoutsScreen";
+import AddWorkoutScreen from "./screens/Trainer/AddWorkoutScreen";
 import TrainerHomepageScreen from "./screens/Trainer/TrainerHomepageScreen";
+import TrainerLoginScreen from "./screens/Trainer/TrainerLoginScreen";
+import TrainerSignupScreen from "./screens/Trainer/TrainerSignupScreen";
+import TrainerScreen from "./screens/TrainerScreen";
+import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/workout/id" element={<WorkoutDetailsScreen />} />
         <Route path="/workout-sub/id" element={<SubcribedWorkouts />} />
         <Route path='/trainersignup' element={<TrainerSignupScreen />} />
+        <Route path="/AddWorkoutScreen" element={<AddWorkoutScreen />} />
 
 
 

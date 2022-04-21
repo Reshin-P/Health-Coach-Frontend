@@ -5,7 +5,7 @@ export const listprograms = () => async(dispatch) =>{
   
     try{
     dispatch({type:PROGRAM_LIST_REQUEST})
-    const {data} =await  axios.get('/program/getallprograms')
+    const {data} =await  axios.get('/program')
     dispatch({
         type:PROGRAM_SUCESS,
         payload:data

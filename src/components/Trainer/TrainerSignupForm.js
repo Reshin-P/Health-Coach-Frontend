@@ -39,7 +39,7 @@ const TrainerSignupForm = () => {
         console.log(certifications);
         console.log(streams);
         const { name, username, email, phone, password } = data;
-        try {
+        try {    
             const response = await axios.post('trainers/trainers', { name, username, email, phone, password, certifications, streams })
             if(response.data){
                 navigate('/trainerLogin')

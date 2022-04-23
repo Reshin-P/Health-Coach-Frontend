@@ -1,20 +1,28 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import React from "react";
+import LinearProgress from '@mui/material/LinearProgress';
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 import axios from '../../util/axios';
 import './AddworkoutForm.css';
+import { bottomNavigationClasses } from '@mui/material';
+import {useNavigate} from 'react-router-dom'
+
 
 const programs = ['yoga', 'gym', 'zumba', 'cardio', 'homeworkouts', 'meditation']
 
 const AddworkoutForm = () => {
-    const a = true
+    const navigate=useNavigate()
+
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const [loading, setLoading] = useState(false)
 
     const onSubmit = async (data) => {
+      
 
+        setLoading(true)
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -25,13 +33,13 @@ const AddworkoutForm = () => {
         const formData = new FormData()
         formData.set('workout', data.workout)
         formData.set('video', data.video[0])
-        formData.set('price',data.price)
-        formData.set('description',data.description)
-        formData.set('diet1',data.diet1)
-        formData.set('diet2',data.diet2)
-        formData.set('dietimage',data.dietimage[0])
-        formData.set('preview',data.preview[0])
-        formData.set('program',data.program)
+        formData.set('price', data.price)
+        formData.set('description', data.description)
+        formData.set('diet1', data.diet1)
+        formData.set('diet2', data.diet2)
+        formData.set('dietimage', data.dietimage[0])
+        formData.set('preview', data.preview[0])
+        formData.set('program', data.program)
 
 
 
@@ -39,13 +47,18 @@ const AddworkoutForm = () => {
 
         console.log(formData);
         const response = await axios.post('/workout', formData, config)
-        console.log("eeeeee");
+        console.log(response);
+        if (response.data) {
+            navigate('/trainer')
+        }
+        setLoading(false)
+
     }
     return (
 
         <Container className="FormContainer">
             <form onSubmit={handleSubmit(onSubmit)}>
-                {a && <><Row className="inputRows mt-5">
+                <Row className="inputRows mt-5">
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
                         <TextField label='Enter the name' fullWidth name='workout' {...register("workout", {
                             required: 'Name Required', pattern: {
@@ -90,7 +103,7 @@ const AddworkoutForm = () => {
                             })} />
                             {errors.description && <p className='text-danger'>{errors.description.message}</p>}
                         </Col>
-                    </Row></>}
+                    </Row>
                 <Row className="inputRows mt-1" >
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol"  >
                         <TextField id="outlined-basic" type={'file'} fullWidth label='Select video' variant="standard" name="video" {...register('video', { required: "Choose Video" })} />
@@ -101,6 +114,7 @@ const AddworkoutForm = () => {
                         {errors.preview && <p className='text-danger'>{errors.preview.message}</p>}
                     </Col>
                 </Row>
+                <input value={{}} hidden></input>
                 <Row className="inputRows mt-1" >
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol"  >
                         <TextField id="outlined-basic" fullWidth label="Diet paragraph 1" variant="outlined" name="diet1" {...register('diet1', {
@@ -127,8 +141,8 @@ const AddworkoutForm = () => {
 
                     </Col>
                 </Row>
-                <Button type="submit" variant="contained">Submit</Button>
-
+                <Button type="submit" className='mb-5' variant="contained">Submit</Button>
+                {loading && <LinearProgress />}
             </form>
         </Container>
     )

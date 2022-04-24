@@ -2,30 +2,58 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import LinearProgress from '@mui/material/LinearProgress';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 import axios from '../../util/axios';
 import './AddworkoutForm.css';
-import { bottomNavigationClasses } from '@mui/material';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
-const programs = ['yoga', 'gym', 'zumba', 'cardio', 'homeworkouts', 'meditation']
+
 
 const AddworkoutForm = () => {
-    const navigate=useNavigate()
+
+    const [program, setProgram] = useState()
+    useEffect(() => {
+
+        const trainerinfo = localStorage.getItem('trainer')
+        if (!trainerinfo) {
+            console.log(trainerinfo);
+            navigate('/')
+        }
+        fetchPrograms()
+    }, [])
+
+    const fetchPrograms = async () => {
+        const { data } = await axios.get('/program')
+        console.log(data);
+        let programs = []
+        data.forEach((item) => {
+            programs.push(item.programname)
+
+        })
+
+        console.log(programs);
+        setProgram(programs)
+    }
+
+    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [loading, setLoading] = useState(false)
 
     const onSubmit = async (data) => {
-      
+        console.log(data);
 
+        let trainerinfo = localStorage.getItem('trainer')
+         trainerinfo=JSON.parse(trainerinfo)
+        console.log(trainerinfo.token);
         setLoading(true)
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${trainerinfo.token}`,
             }
         }
         console.log(data);
@@ -78,32 +106,32 @@ const AddworkoutForm = () => {
                         {errors.price && <p className="text-danger">{errors.price.message}</p>}
                     </Col>
                 </Row>
-                    <Row className="inputRows mt-1">
-                        <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
-                            <Autocomplete fullWidth
-                                disablePortal
-                                id="combo-box-demo"
-                                options={programs}
-                                sx={{ width: 300 }}
-                                renderInput={(params) => <TextField fullWidth {...params} label="program" name="program" {...register('program', { required: "Choose program" })} />}
-                            />
-                            {errors.program && <p className='text-danger'>{errors.program.message}</p>}
+                <Row className="inputRows mt-1">
+                    <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
+                        <Autocomplete fullWidth
+                            disablePortal
+                            id="combo-box-demo"
+                            options={program}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField fullWidth {...params} label="program" name="program" {...register('program', { required: "Choose program" })} />}
+                        />
+                        {errors.program && <p className='text-danger'>{errors.program.message}</p>}
 
-                        </Col>
-                        <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
-                            <TextField label='Enter the description' fullWidth name='description' {...register("description", {
-                                required: 'Description Required', pattern: {
-                                    value: /^[a-zA-Z]+$/g,
-                                    message: "Only Characters"
-                                },
-                                minLength: {
-                                    value: 10,
-                                    message: "description length is short"
-                                }
-                            })} />
-                            {errors.description && <p className='text-danger'>{errors.description.message}</p>}
-                        </Col>
-                    </Row>
+                    </Col>
+                    <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
+                        <TextField label='Enter the description' fullWidth name='description' {...register("description", {
+                            required: 'Description Required', pattern: {
+                                value: /^[a-zA-Z]+$/g,
+                                message: "Only Characters"
+                            },
+                            minLength: {
+                                value: 10,
+                                message: "description length is short"
+                            }
+                        })} />
+                        {errors.description && <p className='text-danger'>{errors.description.message}</p>}
+                    </Col>
+                </Row>
                 <Row className="inputRows mt-1" >
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol"  >
                         <TextField id="outlined-basic" type={'file'} fullWidth label='Select video' variant="standard" name="video" {...register('video', { required: "Choose Video" })} />

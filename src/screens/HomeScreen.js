@@ -41,9 +41,9 @@ const HomeScreen = () => {
         </Container>
         {loading ? (<Loader />) : error ? (<Message variant='danger'>{error}</Message>) :
           <Row className="Category-card  d-flex justify-content-around">
-            {programs.map((product) => (
+            {programs.map((programs) => (
               <Col className=" mt-4 " sm={12} md={6} lg={6} xl={4}>
-                <ProgramCards product={product} />
+                <ProgramCards programs={programs} />
               </Col>
             ))}
           </Row>

@@ -178,7 +178,7 @@ const ResponsiveAppBar = () => {
           >
             {ABOUT}
           </Button>
-          {!user && <Link to={'/trainerLogin'} style={{ textDecorationLine: "none" }}><Button
+          {!user && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}

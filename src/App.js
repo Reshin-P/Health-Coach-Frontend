@@ -27,9 +27,9 @@ function App() {
         <Route path="/myprofile" element={<MyProfileScreen />} />
         <Route path="/myworkouts" element={<MyWorkoutsScreen />} />
         <Route path="/trainer" element={<TrainerHomepageScreen />} />
-        <Route path="/viewprograms" element={<ProgramWiseScreen />} />
-        <Route path="/trainerLogin" element={<TrainerLoginScreen />} />
-        <Route path="/workout/id" element={<WorkoutDetailsScreen />} />
+        <Route path="/programs/:id" element={<ProgramWiseScreen />} />
+        <Route path="/trainerlogin" element={<TrainerLoginScreen />} />
+        <Route path="/workout/:id" element={<WorkoutDetailsScreen />} />
         <Route path="/workout-sub/id" element={<SubcribedWorkouts />} />
         <Route path='/trainersignup' element={<TrainerSignupScreen />} />
         <Route path="/AddWorkoutScreen" element={<AddWorkoutScreen />} />

@@ -7,21 +7,20 @@ import { Link } from 'react-router-dom'
 
 
 const ProgramWiseWorkouts = (props) => {
-    console.log(props);
 
-    let{_id,workout,price,description}=props.data
+    let{_id,workout,price,description,trainer}=props.data
     return (
-        <Row className='SingleProgram mt-5 border  shadow'>
+        <Row key={_id} className='SingleProgram mt-5 border  shadow'>
             <Col lg={3} md={3} className='programLeft'>
-                <div className='ProgramVideo'>
+                <div className='ProgramVideo mb-2'>
                     <img alt='' width={'100%'} height={'100%'} src='/images/youtube.png'></img>
                 </div>
-                <Link to={`/workout/${_id}`}> <h3 className='programName text-danger'> {workout}</h3></Link>
+                <Link  style={{textDecorationLine:'none'}} to={`/workout/${_id}`}> <h3 className='programName text-danger'> {workout}</h3></Link>
             </Col>
             <Col md={7} sm={12} className='Program-Description'>
                 <div>
                     <p>{description}</p>
-                    <h4>Trainer : <LinkContainer style={{ color: 'blue' }} to={'/'}><span >rrtr</span></LinkContainer></h4>
+                    <h4>Trainer : <LinkContainer style={{ color: 'orange' }} to={'/'}><span >{trainer}</span></LinkContainer></h4>
                 </div>
             </Col>
             <Col md={1} sm={12} className='program-Right'>

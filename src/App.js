@@ -13,6 +13,8 @@ import TrainerLoginScreen from "./screens/Trainer/TrainerLoginScreen";
 import TrainerSignupScreen from "./screens/Trainer/TrainerSignupScreen";
 import TrainerScreen from "./screens/TrainerScreen";
 import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
+import ManageWorkout from "./screens/Trainer/ManageWorkoutScreen";
+import WorkoutEditScreen from './screens/Trainer/WorkoutEditScreen'
 
 
 function App() {
@@ -26,12 +28,14 @@ function App() {
         <Route path="/trainers" element={<TrainerScreen />} />
         <Route path="/myprofile" element={<MyProfileScreen />} />
         <Route path="/myworkouts" element={<MyWorkoutsScreen />} />
+        <Route path="/manageworkouts" element={<ManageWorkout />} />
         <Route path="/trainer" element={<TrainerHomepageScreen />} />
         <Route path="/programs/:id" element={<ProgramWiseScreen />} />
         <Route path="/trainerlogin" element={<TrainerLoginScreen />} />
-        <Route path="/workout/:id" element={<WorkoutDetailsScreen />} />
         <Route path="/workout-sub/id" element={<SubcribedWorkouts />} />
+        <Route path="/workout/:id" element={<WorkoutDetailsScreen />} />
         <Route path='/trainersignup' element={<TrainerSignupScreen />} />
+        <Route path="/editWorkout/:id" element={<WorkoutEditScreen />} />
         <Route path="/AddWorkoutScreen" element={<AddWorkoutScreen />} />
 
 

@@ -21,17 +21,14 @@ function TrainerLogin() {
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
     const FormSubmit = async (input) => {
-        console.log(input);
         try {
             const response = await axios.post('/user/login', { username, password })
-            console.log(response);
             if (response.data) {
                 localStorage.setItem('userInfo', JSON.stringify(response))
                navigate('/')
                
             }
         } catch (err) {
-            console.log(err.response.data.message);
             setLoginerror(err.response.data.message)
         }
     }
@@ -93,8 +90,7 @@ export default TrainerLogin
 
 
 //     const data = await axios.post('/login', { email, password })
-//     console.log(data);
-//     console.log("login page response");
+//     
 //     if (data.data) {
 
 //       localStorage.setItem('userInfo', JSON.stringify(data))

@@ -1,10 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {Row,Col} from 'react-bootstrap'
 import './WorkoutDescription.css'
-import { COURSE_CONTENTS } from '../constances/CommonConstants'
+import { singleWorkout } from '../actions/workoutActions'
 
-const WorkoutDescription = ({workout}) => {
-const{description,preview}=workout
+import { useParams } from 'react-router-dom'
+
+import { COURSE_CONTENTS } from '../constances/CommonConstants'
+import{useSelector,useDispatch} from 'react-redux'
+const WorkoutDescription = ({workut}) => {
+  const params = useParams()
+  const dispatch = useDispatch()
+  const workoutdata=useSelector((state)=>{
+    return state.singleWorkout
+  })
+  const {price,workout,description,_id,video}=workoutdata.workout
+  useEffect(() => {
+    dispatch(singleWorkout(params.id))
+  }, [dispatch])
   return (
   <Row className='workout_des_row'>
 <Col className='workout_des_col1' lg={6} md={12} xl={6}>
@@ -12,6 +24,8 @@ const{description,preview}=workout
     <div>
         <h6 className='des_text mt-4'>
         {description}
+
+
         </h6>
     </div>
 </Col>

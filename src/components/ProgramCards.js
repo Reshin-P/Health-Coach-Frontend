@@ -4,7 +4,6 @@ import { Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Cards = ({ programs }) => {
-  console.log(programs);
   return (
 
     <Card key={programs.programname} className=" mx-auto border_gradient px-auto my-3  shadow" style={{ minWidth: "50%" , maxWidth:"80%" }}>

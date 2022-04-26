@@ -13,7 +13,6 @@ const SignupScreen = () => {
     
 
     const user=localStorage.getItem('userInfo')
-    console.log(user);
     if(user){
       navigate('/')
     }

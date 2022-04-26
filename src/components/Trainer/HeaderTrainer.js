@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 const HeaderTrainer = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -90,8 +90,11 @@ const HeaderTrainer = () => {
           horizontal: 'left',
         }}
       >
+
+
         <Link style={{ textDecorationLine: "none", color: 'black' }} to={'/AddWorkoutScreen'} >   <MenuItem onClick={handleClose}>{ADDWORKOUTS}</MenuItem></Link>
-        <MenuItem onClick={handleClose}>{MANAGEWORKOUTS}</MenuItem>
+        <Link style={{ textDecorationLine: "none", color: 'black' }} to={'/manageworkouts'} >   <MenuItem onClick={handleClose}>{MANAGEWORKOUTS}</MenuItem></Link>
+
 
       </Menu>
 

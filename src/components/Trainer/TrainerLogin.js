@@ -13,7 +13,6 @@ import {useEffect} from 'react'
 function TrainerLogin() {
     const navigate = useNavigate() 
        useEffect(() => {
-console.log("fdfdd");
         const trainer=localStorage.getItem('trainer')
         if(trainer){
             navigate('/trainer')
@@ -33,16 +32,13 @@ console.log("fdfdd");
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
     const FormSubmit = async (input) => {
-        console.log(input);
         try {
             const response = await axios.post('/trainers/trainerlogin', { username, password })
-            console.log(response);
             if (response.data) {
                 localStorage.setItem('trainer', JSON.stringify(response.data))
                navigate('/trainer')
             }
         } catch (err) {
-            console.log(err.response.data.message);
             setLoginerror(err.response.data.message)
         }
     }

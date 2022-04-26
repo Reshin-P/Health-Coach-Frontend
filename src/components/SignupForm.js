@@ -17,22 +17,19 @@ const SignupForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [signuperror,setsignuperror]=useState(false)
   const onSubmit = async(data)=>{
-    console.log(data);
     const { name, username, email, phone, password,age,weight,height,healthcondition }=data
 
  
     try{
       let response = await axios.post('/user', { name, email, phone,username, password,age,weight,height,healthcondition })
-        console.log("responsee");
-        console.log(response);
+       
        if(response.data)
         {
           
           navigate('/login')
         }
     } catch(err){
-      console.log("ffff");
-      console.log(err.response.data.message);
+     
       setsignuperror(err.response.data.message)
     }
   }

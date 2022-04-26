@@ -19,18 +19,15 @@ import Alert from '@mui/material/Alert';
     const fetchworkout = async () => {
       try {
         const { data } = await axios.get(`/program/program/${params.id}`)
-        console.log(data);
         setWorkout(data)
       }
       catch (error) {
-        console.log(error)
-        console.log("ffffffffffffffffffffffffffff");
 
         setNodata(error)
       }
     }
     fetchworkout()
-  })
+  },[])
   return (
     <div>
       <Header />

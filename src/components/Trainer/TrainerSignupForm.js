@@ -35,9 +35,7 @@ const TrainerSignupForm = () => {
     const [streams, setStreams] = useState([])
 
     const onSubmit = async (data) => {
-        console.log(data);
-        console.log(certifications);
-        console.log(streams);
+       
         const { name, username, email, phone, password } = data;
         try {    
             const response = await axios.post('trainers/trainers', { name, username, email, phone, password, certifications, streams })
@@ -45,8 +43,7 @@ const TrainerSignupForm = () => {
                 navigate('/trainerLogin')
             }
         } catch (err) {
-            console.log(err.response.data.message);
-            console.log('-----------------------');
+           
             setsignuperror(err.response.data.message)
 
         }

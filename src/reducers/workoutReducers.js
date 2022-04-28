@@ -23,7 +23,7 @@ export const workoutReducer = (state = { workout: {} }, action) => {
     }
 }
 
-export const getAllWorkouts = (state = { allWorkouts: [] }, action) => {
+export const allWorkoutsReducer = (state = { allWorkouts: [] }, action) => {
 
     switch (action.type) {
         case ALL_WORKOUTS_REQUEST:

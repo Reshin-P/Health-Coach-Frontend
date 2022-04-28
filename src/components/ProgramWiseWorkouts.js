@@ -4,18 +4,22 @@ import './CategorywiseProgram.css'
 import { Button } from '@mui/material'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
+import ReactPlayer from 'react-player'
 
 
 const ProgramWiseWorkouts = (props) => {
 
-    let{_id,workout,price,description,trainer}=props.data
+    console.log(props);
+    let { _id, workout, price, description, trainer, video, preview } = props.data
+    console.log(preview);
     return (
         <Row key={_id} className='SingleProgram mt-5 border  shadow'>
             <Col lg={3} md={3} className='programLeft'>
                 <div className='ProgramVideo mb-2'>
-                    <img alt='' width={'100%'} height={'100%'} src='/images/youtube.png'></img>
+                    <ReactPlayer width={'100%'} height={'200px'} url={preview} muted controls ></ReactPlayer>
+                    {/* <img alt='' width={'100%'} height={'100%'} src='/images/youtube.png'></img> */}
                 </div>
-                <Link  style={{textDecorationLine:'none'}} to={`/workout/${_id}`}> <h3 className='programName text-danger'> {workout}</h3></Link>
+                <Link style={{ textDecorationLine: 'none' }} to={`/workout/${_id}`}> <h3 className='programName text-danger'> {workout}</h3></Link>
             </Col>
             <Col md={7} sm={12} className='Program-Description'>
                 <div>

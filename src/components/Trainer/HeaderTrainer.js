@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,12 +10,22 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../../constances/HomePageConstants'
+import { WORKOUTS, BLOG, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../../constances/HomePageConstants'
 import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 const HeaderTrainer = () => {
+  const [trainer, setTrainer] = useState()
+  const navigate = useNavigate()
+  useEffect(() => {
+    const trainer = localStorage.getItem('trainer')
+    console.log(trainer);
+    if (!trainer) {
+      navigate('/trainerlogin')
+    }
+    setTrainer(trainer)
+  }, [])
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl)
@@ -31,6 +41,9 @@ const HeaderTrainer = () => {
   };
 
   const logout = () => {
+    console.log("rererere");
+    localStorage.clear("trainer")
+
 
   }
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -163,20 +176,20 @@ const HeaderTrainer = () => {
           >
             {WORKOUTS}
           </Button>
-          <Button
+          {/* <Button
 
             onClick={handleClick2}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {PROGRAMS}
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {WORKOUTS}
-          </Button>
+          </Button> */}
           <Button
 
             onClick={handleCloseNavMenu}
@@ -184,13 +197,13 @@ const HeaderTrainer = () => {
           >
             {BLOG}
           </Button>
-          <Button
+          {/* <Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {ABOUT}
-          </Button>
+          </Button> */}
           <Link to={'/trainer-signup'} style={{ textDecorationLine: "none" }}><Button
 
             onClick={handleCloseNavMenu}
@@ -208,12 +221,12 @@ const HeaderTrainer = () => {
         {/* {!user && <Link to={'/signup'}><Button sx={{ marginRight: "9px" }} variant="outlined" >
         Signup
       </Button></Link>} */}
-        {/* {user && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
-        Logout
-      </Button>} */}
+        {trainer && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
+          Logout
+        </Button>}
 
 
-        <Box sx={{ flexGrow: 0 }}>
+        {trainer && <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -243,21 +256,10 @@ const HeaderTrainer = () => {
               <Link style={{ textDecoration: 'none', color: 'black' }} to={'/myworkouts'}><Typography textAlign="center">{MY_WORKOUTS}</Typography></Link>
 
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography onClick={logout} textAlign="center">{LOGOUT}</Typography>
 
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">nkjnkj</Typography>
-
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">nkjnkj</Typography>
-
-            </MenuItem>
 
           </Menu>
-        </Box>
+        </Box>}
 
       </Toolbar>
     </AppBar>

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
+import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from 'react-redux';
+import { listprograms } from '../actions/programActions';
 import Currosal from "../components/Currosal";
-import ProgramCards from "../components/ProgramCards";
-import { Row, Col, Container } from "react-bootstrap";
-import axios from '../util/axios.js'
-import { useDispatch, useSelector } from 'react-redux'
-import Trainers from "../components/Trainers";
 import Footer from "../components/Footer";
-import { listprograms } from '../actions/programActions'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { PROGRAM_HEADING } from '../constances/HomePageConstants'
-import { TRAINER_HEADING } from '../constances/HomePageConstants'
+import Header from "../components/Header";
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import ProgramCards from "../components/ProgramCards";
+import Trainers from "../components/Trainers";
+import { PROGRAM_HEADING, TRAINER_HEADING } from '../constances/HomePageConstants';
+import axios from '../util/axios.js';
+
+
 const HomeScreen = () => {
   const dispatch = useDispatch()
   const programList = useSelector(state => state.programList)

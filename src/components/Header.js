@@ -15,22 +15,35 @@ import { Link } from 'react-router-dom';
 import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../constances/HomePageConstants'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Logout } from '../actions/userActions'
 
 
 const ResponsiveAppBar = () => {
+  const dispatch = useDispatch()
   const [user, setUser] = useState('')
   const navigate = useNavigate()
+  const [log, setLog] = useState(false)
+  // const { user: { userInfo } } = useSelector((state) => {
+  //   return state
+  // })
+
+
   useEffect(() => {
+
     const userInfo = localStorage.getItem('userInfo')
     if (userInfo) {
-      let user = JSON.parse(userInfo)
-      user = user.data
-      setUser(user)
+      let data = JSON.parse(userInfo)
+      setUser(data)
     }
   }, [])
+  console.log(user);
+  console.log("..../////..../////....////");
   const logout = () => {
-    localStorage.clear("userInfo");
-    navigate('/');
+    dispatch(Logout())
+    setTimeout(() => {
+      navigate('/login')
+    }, 0);
   };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

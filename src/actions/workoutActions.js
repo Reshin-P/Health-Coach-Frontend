@@ -34,29 +34,29 @@ export const singleWorkout = (workoutID) => async (dispatch) => {
 export const updateProductReset = () => {
     return {
         type: SINGLE_WORKOUT_RESET
-        
+
     };
 };
 export const getAllWorkouts = () => async (dispatch) => {
-    console.log("reducer");
     try {
-        console.log("try");
         dispatch({
             type: ALL_WORKOUTS_REQUEST
         })
         const { data } = await axios.get('/workout')
-        console.log(data);
         dispatch({
-            type:ALL_WORKOUTS_SUCESS,
-            payload:data
+            type: ALL_WORKOUTS_SUCESS,
+            payload: data
         })
     } catch (error) {
         dispatch({
-            type:ALL_WORKOUTS_FAIL,
-            payload:error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
+            type: ALL_WORKOUTS_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
         })
 
     }
 }
+
+
+

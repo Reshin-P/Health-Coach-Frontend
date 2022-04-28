@@ -43,7 +43,7 @@ const AddworkoutForm = () => {
     const onSubmit = async (data) => {
 
         let trainerinfo = localStorage.getItem('trainer')
-         trainerinfo=JSON.parse(trainerinfo)
+        trainerinfo = JSON.parse(trainerinfo)
         setLoading(true)
         const config = {
             headers: {
@@ -111,14 +111,14 @@ const AddworkoutForm = () => {
                     </Col>
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
                         <TextField label='Enter the description' fullWidth name='description' {...register("description", {
-                            required: 'Description Required', 
+                            required: 'Description Required',
                             maxLength: {
                                 value: 750,
                                 message: "description length is high"
                             },
-                            min:{
-                                value:300,
-                                message:"Minimum Length 70 words"
+                            min: {
+                                value: 300,
+                                message: "Minimum Length 70 words"
                             }
                         })} />
                         {errors.description && <p className='text-danger'>{errors.description.message}</p>}
@@ -142,22 +142,24 @@ const AddworkoutForm = () => {
                                 value: 300,
                                 message: 'Minimum 300 Words',
                             },
-                            maxLength:{
-                                value:680,
-                                message:'Maximum words 120'
+                            maxLength: {
+                                value: 680,
+                                message: 'Maximum words 120'
                             }
                         })} />
                         {errors.diet1 && <p className='text-danger'>{errors.diet1.message}</p>}
                     </Col>
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol"  >
-                        <TextField id="outlined-basic" fullWidth label="Diet paragraph 2" variant="outlined" name="diet2" {...register('diet2', { required: "Enter the Diet", minLength: {
+                        <TextField id="outlined-basic" fullWidth label="Diet paragraph 2" variant="outlined" name="diet2" {...register('diet2', {
+                            required: "Enter the Diet", minLength: {
                                 value: 300,
                                 message: 'Minimum 300 Words',
                             },
-                            maxLength:{
-                                value:680,
-                                message:'Maximum words 120'
-                            } })} />
+                            maxLength: {
+                                value: 680,
+                                message: 'Maximum words 120'
+                            }
+                        })} />
                         {errors.diet2 && <p className='text-danger'>{errors.diet2.message}</p>}
                     </Col>
                 </Row>

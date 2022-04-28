@@ -6,10 +6,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from '../util/axios'
 import Alert from '@mui/material/Alert';
 import './LoginForm.css'
+import {useDispatch,useSelector} from 'react-redux'
+import {loginForm} from '../actions/userActions'
 
  
 
-function TrainerLogin() {
+function Login() {
+    const {loading,error,userInfo}=useSelector((state)=> state.loginUser)
+    const dispatch=useDispatch()
     const navigate = useNavigate()
     const [mailError, setMailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
@@ -21,16 +25,11 @@ function TrainerLogin() {
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
     const FormSubmit = async (input) => {
-        try {
-            const response = await axios.post('/user/login', { username, password })
-            if (response.data) {
-                localStorage.setItem('userInfo', JSON.stringify(response))
-               navigate('/')
-               
-            }
-        } catch (err) {
-            setLoginerror(err.response.data.message)
-        }
+        dispatch(loginForm(login))
+    setTimeout(() => {
+        navigate('/')
+    }, 2000);
+      
     }
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }
@@ -48,7 +47,7 @@ function TrainerLogin() {
                         <p>{passwordError}</p>
                     </center>
                     </Grid>
-                    {loginerror && <Alert severity="error">{loginerror}</Alert>}
+                    {error && <Alert severity="error">{error}</Alert>}
                     <form onSubmit={handleSubmit(FormSubmit)}>
                         <TextField id="standard-basic" label="username" variant="standard" value={login.username} name="username" {...register('username', { required: "username is required" })} onChange={(event) => setLogin({ ...login, username: event.target.value })} fullWidth />
                         {errors?.username && <p className="text-danger">{errors.username.message}</p>}
@@ -63,7 +62,7 @@ function TrainerLogin() {
         </div>
     )
 }
-export default TrainerLogin
+export default Login
 
 
 

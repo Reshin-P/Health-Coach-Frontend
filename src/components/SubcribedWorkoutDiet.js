@@ -1,10 +1,22 @@
 import Button from '@mui/material/Button';
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import { CONNECT_TRAINER, DIET_INSTRUCTION, DIET_PLAN, MESSAGE, PREFERED_FOOD, VIDEO_CALL, WHATSAPP } from '../constances/SubscribedWorkout';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { singleWorkout } from '../actions/workoutActions';
+import { CONNECT_TRAINER, DIET_INSTRUCTION, DIET_PLAN, MESSAGE, VIDEO_CALL, WHATSAPP } from '../constances/SubscribedWorkout';
 import './SubcribedWorkoutDiet.css';
-
 const SubcribedWorkoutDiet = () => {
+    const params = useParams()
+    const dispatch = useDispatch()
+    let workoutdata = useSelector((state) => {
+        return state.singleWorkout
+    })
+    const { loading, workout } = workoutdata
+
+    useEffect(() => {
+        dispatch(singleWorkout(params.id))
+    }, [])
     return (
         <div className="mt-2">
             <Row className="diet_row" >
@@ -13,20 +25,20 @@ const SubcribedWorkoutDiet = () => {
                         <h1 className="text-center"><u>{DIET_PLAN}</u></h1>
                         <p className="text-danger text-center">{DIET_INSTRUCTION}</p>
                         <div className="imagebox">
-                            <img src="/images/diet.jpg" alt='' width={'80%'} height={'250px'}></img >
+                            <img src={workout.dietimage} alt='' width={'80%'} height={'250px'}></img >
                         </div>
                         <div className="border mt-5 " >
                             <div className="mx-3">
-                                <p className="mt-5 " width={'80%'}>ontrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                <p className="mt-5 " width={'80%'}>{workout.diet1}</p>
 
                             </div>
                             <div className="mt-5 mx-2">
-                                <p className="mt-5" width={'80%'}>ontrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                <p className="mt-5" width={'80%'}>{workout.diet2}</p>
 
                             </div>
 
 
-                            <h4>{PREFERED_FOOD}<span>:Salads banana</span></h4>
+                            {/* <h4>{PREFERED_FOOD}<span>:Salads banana</span></h4> */}
                         </div>
 
                     </div>
@@ -35,7 +47,7 @@ const SubcribedWorkoutDiet = () => {
                     <div className="connect ">
                         <h2>{CONNECT_TRAINER}</h2>
                         <Button className="mt-5 btn1" variant="contained">{VIDEO_CALL}</Button>
-                        <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button>
+                        <Link to={'/chat'}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
                         <Button className="mt-5 btn3" variant="contained">{WHATSAPP}</Button>
                     </div>
 

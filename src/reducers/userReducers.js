@@ -9,23 +9,24 @@ import {
     USER_LOGIN_FAIL,
     USER_WEIGHT_UPDATE_REQUEST,
     USER_WEIGHT_UPDATE_SUCESS,
-    USER_WEIGHT_UPDATE_FAIL
+    USER_WEIGHT_UPDATE_FAIL,
+    USER_SUBCRIBED_WORKOUT_SUCCESS,
+    USER_SUBCRIBED_WORKOUT_REQUEST,
+    USER_SUBCRIBED_WORKOUT_FAIL
 } from '../constances/UserConstants'
 
 let data = localStorage.getItem('userInfo')
 data = JSON.parse(data)
-console.log(data);
-console.log("console from rducer");
 if (data) {
     data = data
 
 } else {
     data = null
 }
-console.log("data");
 
-console.log(data);
-console.log("data");
+
+// To Veryfy the user
+
 export const veryuserReducer = (state = { userInfo: data }, action) => {
 
     switch (action.type) {
@@ -36,7 +37,10 @@ export const veryuserReducer = (state = { userInfo: data }, action) => {
     }
 }
 
+//To Add User Weight
+
 export const userWeightUpdate = (state = { weight: {} }, { type, payload }) => {
+
     switch (type) {
         case USER_WEIGHT_UPDATE_REQUEST:
             return { ...state, loading: true }
@@ -50,8 +54,10 @@ export const userWeightUpdate = (state = { weight: {} }, { type, payload }) => {
 }
 
 
+//To Edit User Profile 
 
 export const userprofileEditReducer = (state = { user: {} }, { type, payload }) => {
+
     switch (type) {
         case USER_UPDATE_REQUEST:
             return { ...state, loading: true }
@@ -66,8 +72,10 @@ export const userprofileEditReducer = (state = { user: {} }, { type, payload }) 
     }
 }
 
+//To User Login Check
 
 export const LoginCheckReducer = (state = { userInfo: {} }, { type, payload }) => {
+
     switch (type) {
         case USER_LOGIN_REQUEST:
             return { ...state, loading: true }
@@ -76,5 +84,20 @@ export const LoginCheckReducer = (state = { userInfo: {} }, { type, payload }) =
         case USER_LOGIN_FAIL:
             return { ...state, loading: false, error: payload }
         default: return state
+    }
+}
+
+// To Get All subcribes workouts
+
+export const subcribeWorkouts = (state = { subcribedworkouts: [] }, { type, payload }) => {
+    switch (type) {
+        case USER_SUBCRIBED_WORKOUT_REQUEST:
+            return { ...state, loading: true }
+        case USER_SUBCRIBED_WORKOUT_SUCCESS:
+            return { ...state, loading: false, subcribedworkouts: payload }
+        case USER_SUBCRIBED_WORKOUT_FAIL:
+            return { ...state, loading: false, error: payload }
+        default:
+            return state
     }
 }

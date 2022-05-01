@@ -1,6 +1,8 @@
 import { PROGRAM_LIST_REQUEST, PROGRAM_SUCESS, PROGRAM_LIST_FAIL } from '../constances/programConstants'
 import axios from '../util/axios.js'
 
+
+//To List All Programs
 export const listprograms = () => async (dispatch) => {
 
     try {

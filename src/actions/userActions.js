@@ -10,37 +10,32 @@ import {
     USER_LOGIN_FAIL,
     USER_WEIGHT_UPDATE_REQUEST,
     USER_WEIGHT_UPDATE_SUCESS,
-    USER_WEIGHT_UPDATE_FAIL
+    USER_WEIGHT_UPDATE_FAIL,
+    USER_SUBCRIBED_WORKOUT_REQUEST,
+    USER_SUBCRIBED_WORKOUT_SUCCESS,
+    USER_SUBCRIBED_WORKOUT_FAIL
 } from '../constances/UserConstants'
 
 
 
+// To Very The User
 
 export const veryfyUser = () => async (dispatch) => {
-    console.log("re a ched");
-    let userInfo = await localStorage.getItem('userInfo')
-    console.log("999999999999999999999999999999");
-    console.log(userInfo);
-    userInfo = JSON.parse(userInfo)
-    console.log("999999999999999999999999999999");
 
+    let userInfo = await localStorage.getItem('userInfo')
+    userInfo = JSON.parse(userInfo)
     if (!userInfo) {
         userInfo = null
-
     }
-
     dispatch({
         type: USER_VERYFY,
         payload: userInfo
-
     })
 }
 
+//User LoginForm
 
 export const loginForm = ({ username, password }) => async (dispatch) => {
-    console.log("reached here");
-    console.log(username);
-    console.log(password);
 
     dispatch({
         type: USER_LOGIN_REQUEST
@@ -57,7 +52,6 @@ export const loginForm = ({ username, password }) => async (dispatch) => {
             type: USER_VERYFY,
             payload: data
         })
-
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
@@ -66,19 +60,22 @@ export const loginForm = ({ username, password }) => async (dispatch) => {
                 : error.message
         })
     }
-
-
 }
 
+//User Logout
+
 export const Logout = () => async (dispatch) => {
-    console.log("logout actions");
+
     localStorage.removeItem("userInfo")
     dispatch({
         type: USER_LOGOUT
     })
 }
 
+//User Profile Update
+
 export const userUpdate = (user) => async (dispatch, getState) => {
+
     dispatch({
         type: USER_UPDATE_REQUEST,
     })
@@ -104,41 +101,30 @@ export const userUpdate = (user) => async (dispatch, getState) => {
             type: USER_VERYFY,
             payload: data
         })
-
     } catch (error) {
         dispatch({
             type: USER_UPDATE_FAIL,
             payload: error.message
         })
-
     }
 }
 
+//To Update User Weight
 
 export const updateWeight = (weight, id) => async (dispatch) => {
+
     let user = localStorage.getItem('userInfo')
     user = JSON.parse(user)
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-    console.log(user);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-    console.log(weight);
     dispatch({
         type: USER_WEIGHT_UPDATE_REQUEST
     })
     try {
-
         const config = {
             headers: {
                 Authorization: user.token
             }
         }
-        console.log("before calling");
         const { data } = await axios.put(`/user/weight/${user._id}`, { weight }, config)
-        console.log("after calling");
-        console.log(data);
-        console.log(".............hhhhh............................");
         dispatch({
             type: USER_WEIGHT_UPDATE_SUCESS,
             payload: data
@@ -147,7 +133,6 @@ export const updateWeight = (weight, id) => async (dispatch) => {
             type: USER_VERYFY,
             payload: data
         })
-
     } catch (error) {
         dispatch({
             type: USER_WEIGHT_UPDATE_FAIL,
@@ -156,5 +141,41 @@ export const updateWeight = (weight, id) => async (dispatch) => {
                 : error.message
         })
     }
+}
 
+//To get subcribed workouts
+
+export const getSubcribedWorkouts = (id) => async (dispatch) => {
+    console.log("reacherd reducesressfjdhkjgbfwkdshio");
+
+    let userInfo = await localStorage.getItem('userInfo')
+    userInfo = JSON.parse(userInfo)
+    console.log(">>>>>>>>>>>>>>>>>>>>>>", userInfo);
+    dispatch({
+        type: USER_SUBCRIBED_WORKOUT_REQUEST
+    })
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        }
+        const { data } = await axios.get(`/subcribe/${userInfo._id}`)
+        dispatch({
+            type: USER_SUBCRIBED_WORKOUT_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_SUBCRIBED_WORKOUT_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+
+    }
 }

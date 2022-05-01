@@ -3,7 +3,8 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { programReducer } from '../reducers/programReducer'
 import { workoutReducer, allWorkoutsReducer } from '../reducers/workoutReducers'
-import { veryuserReducer, userprofileEditReducer, LoginCheckReducer, userWeightUpdate } from '../reducers/userReducers'
+import { veryuserReducer, subcribeWorkouts, userprofileEditReducer, LoginCheckReducer, userWeightUpdate } from '../reducers/userReducers'
+import { AdminLoginReducer } from '../reducers/AdminReducers'
 
 const reducer = combineReducers({
     programList: programReducer,
@@ -12,7 +13,9 @@ const reducer = combineReducers({
     user: veryuserReducer,
     updateuser: userprofileEditReducer,
     loginUser: LoginCheckReducer,
-    updateweight: userWeightUpdate
+    updateweight: userWeightUpdate,
+    admin: AdminLoginReducer,
+    subcribe: subcribeWorkouts
 })
 
 const initialState = {}

@@ -11,7 +11,6 @@ const ProgramWiseWorkouts = (props) => {
 
     console.log(props);
     let { _id, workout, price, description, trainer, video, preview } = props.data
-    console.log(preview);
     return (
         <Row key={_id} className='SingleProgram mt-5 border  shadow'>
             <Col lg={3} md={3} className='programLeft'>
@@ -30,7 +29,7 @@ const ProgramWiseWorkouts = (props) => {
             <Col md={1} sm={12} className='program-Right'>
                 <div className='ml-4'>
                     <h1>₹{price}</h1>
-                    <Button variant="contained">Buy</Button>
+                    <Link to={'/payment'}><Button variant="contained">Buy</Button></Link>
                 </div>
             </Col>
         </Row>

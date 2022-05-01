@@ -10,7 +10,7 @@ import Alert from '@mui/material/Alert';
 
 
 
-  const CategoryWiseProgramScreen = () => {
+const CategoryWiseProgramScreen = () => {
   const params = useParams()
   const [nodata, setNodata] = useState()
   const [workout, setWorkout] = useState([])
@@ -27,11 +27,11 @@ import Alert from '@mui/material/Alert';
       }
     }
     fetchworkout()
-  },[])
+  }, [])
   return (
     <div>
       <Header />
-      <Container className='border shadow vh-100'>
+      <Container className='border shadow ' style={{ minHeight: "900px" }}>
         {nodata && <Alert severity="info">This is an info alert — check it out!</Alert>}
         {workout.map((smp) =>
           <ProgramWiseWorkouts data={smp} />)}

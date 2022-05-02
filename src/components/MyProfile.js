@@ -19,9 +19,7 @@ const MyProfile = () => {
     const { user: { userInfo } } = useSelector((state) => {
         return state
     })
-    console.log("userinfo");
-    console.log(userInfo);
-    console.log("userinfo");
+
     const { Weightsuccess } = useSelector((state) => state.updateweight)
     const { loading, error, success, message } = useSelector((state) => state.updateuser)
 

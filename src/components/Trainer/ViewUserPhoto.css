@@ -1,0 +1,30 @@
+.photoRow {
+    border: solid 2px red;
+    height: 300px;
+    margin-top: 60px;
+}
+
+.photoCol1 {
+    border: 2px solid green;
+    height: 300px;
+}
+
+.photoCol2 {
+    border: 2px solid green;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.profilePhoto {
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+}
+
+.user-name {
+    padding-left: 40px;
+    color: #ae3e3e;
+}

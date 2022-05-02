@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Container, } from "react-bootstrap";
-import WorkoutVideo from "../components/WorkoutVideo";
-import Header from '../components/Header'
-import WorkoutDescription from "../components/WorkoutDescription";
+import React from "react";
+import { Container } from "react-bootstrap";
+// import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
-import axios from "../util/axios";
-import { useParams } from "react-router-dom";
-import { useSelect } from "@mui/base";
+import Header from '../components/Header';
+import WorkoutDescription from "../components/WorkoutDescription";
+import WorkoutVideo from "../components/WorkoutVideo";
 
 
 
 const WorkoutDetailsScreen = () => {
-    const params=useParams()
- 
-  
+    // const params = useParams()
     return (
         <>
             <Header />
-            <Container  className="border  shadow mt-5"   >
+            <Container className="border  shadow mt-5"   >
                 <div className="m-5">
-                <WorkoutVideo />
-                <WorkoutDescription />
+                    <WorkoutVideo />
+                    <WorkoutDescription />
                 </div>
             </Container>
-            <Footer/>
+            <Footer />
         </>
     )
 }

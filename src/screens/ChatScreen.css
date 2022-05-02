@@ -1,0 +1,42 @@
+.msg-main-container {
+    margin-top: 5%;
+    /* border: 3px solid red; */
+    min-height: 800px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.mainrow {
+    /* border: solid 2px green; */
+    width: 60%;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.chatboxBottom {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatmessageinput {
+    width: 80%;
+    height: 50px;
+    padding: 10px;
+}
+
+.send-btn {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: teal;
+    color: white;
+
+}

@@ -9,6 +9,9 @@ import './SubcribedWorkoutDiet.css';
 const SubcribedWorkoutDiet = () => {
     const params = useParams()
     const dispatch = useDispatch()
+    const { user: { userInfo } } = useSelector((state) => {
+        return state
+    })
     let workoutdata = useSelector((state) => {
         return state.singleWorkout
     })
@@ -47,7 +50,7 @@ const SubcribedWorkoutDiet = () => {
                     <div className="connect ">
                         <h2>{CONNECT_TRAINER}</h2>
                         <Button className="mt-5 btn1" variant="contained">{VIDEO_CALL}</Button>
-                        <Link to={'/chat'}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
+                        <Link to={`/chat/${userInfo._id}/${workout._id}`}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
                         <Button className="mt-5 btn3" variant="contained">{WHATSAPP}</Button>
                     </div>
 

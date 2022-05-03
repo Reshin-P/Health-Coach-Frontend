@@ -1,16 +1,17 @@
 .photoRow {
-    border: solid 2px red;
+    /* border: solid 2px red; */
     height: 300px;
     margin-top: 60px;
 }
 
 .photoCol1 {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     height: 300px;
+    margin-left: 30px;
 }
 
 .photoCol2 {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     height: 300px;
     display: flex;
     flex-direction: column;

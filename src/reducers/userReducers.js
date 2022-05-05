@@ -12,7 +12,11 @@ import {
     USER_WEIGHT_UPDATE_FAIL,
     USER_SUBCRIBED_WORKOUT_SUCCESS,
     USER_SUBCRIBED_WORKOUT_REQUEST,
-    USER_SUBCRIBED_WORKOUT_FAIL
+    USER_SUBCRIBED_WORKOUT_FAIL,
+    USER_PROFILE_PHOTO_REQUEST,
+    USER_PROFILE_PHOTO_SUCESS,
+
+    USER_PROFILE_PHOTO_FAIL
 } from '../constances/UserConstants'
 
 let data = localStorage.getItem('userInfo')
@@ -80,7 +84,7 @@ export const LoginCheckReducer = (state = { userInfo: {} }, { type, payload }) =
         case USER_LOGIN_REQUEST:
             return { ...state, loading: true }
         case USER_LOGIN_SUCCESS:
-            return { ...state, loading: false, loginUser: payload }
+            return { ...state, sucess: true, loading: false, loginUser: payload }
         case USER_LOGIN_FAIL:
             return { ...state, loading: false, error: payload }
         default: return state
@@ -100,4 +104,21 @@ export const subcribeWorkouts = (state = { subcribedworkouts: [] }, { type, payl
         default:
             return state
     }
+}
+
+//To upload profile photo
+
+
+export const uploadProfilePhoto = (state = { userprofilePhoto: {} }, { type, payload }) => {
+    switch (type) {
+        case USER_PROFILE_PHOTO_REQUEST:
+            return { ...state, loadingphoto: true }
+        case USER_PROFILE_PHOTO_SUCESS:
+            return { ...state, loadingphoto: false, photosucess: true, photo: payload }
+        case USER_PROFILE_PHOTO_FAIL:
+            return { ...state, loadingphoto: false, error: payload }
+        default:
+            return state
+    }
+
 }

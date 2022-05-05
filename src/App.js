@@ -1,25 +1,26 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminHomepageScreen from "./screens/Admin/AdminHomepageScreen";
-import AdminLoginScreen from "./screens/Admin/AdminLoginScreen";
 import HomeScreen from "./screens/HomeScreen";
+import ChatScreen from "./screens/ChatScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import TrainerScreen from "./screens/TrainerScreen";
 import MyProfileScreen from './screens/MyProfileScreen';
 import MyWorkoutsScreen from "./screens/MyWorkoutsScreen";
 import ProgramWiseScreen from "./screens/ProgramWiseScreen";
-import SignupScreen from "./screens/SignupScreen";
+import ViewUserScreen from "./screens/Trainer/ViewUserScreen";
+import AdminLoginScreen from "./screens/Admin/AdminLoginScreen";
 import SubcribedWorkouts from "./screens/SubcribedWorkoutsScreen";
+import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
 import AddWorkoutScreen from "./screens/Trainer/AddWorkoutScreen";
 import ManageWorkout from "./screens/Trainer/ManageWorkoutScreen";
-import TrainerHomepageScreen from "./screens/Trainer/TrainerHomepageScreen";
+import WorkoutEditScreen from './screens/Trainer/WorkoutEditScreen';
+import AdminHomepageScreen from "./screens/Admin/AdminHomepageScreen";
 import TrainerLoginScreen from "./screens/Trainer/TrainerLoginScreen";
 import TrainerSignupScreen from "./screens/Trainer/TrainerSignupScreen";
-import WorkoutEditScreen from './screens/Trainer/WorkoutEditScreen';
-import TrainerScreen from "./screens/TrainerScreen";
-import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import ChatScreen from "./screens/ChatScreen";
-import ViewUserScreen from "./screens/Trainer/ViewUserScreen";
+import TrainerProfileScreen from "./screens/Trainer/TrainerProfileScreen";
+import TrainerHomepageScreen from "./screens/Trainer/TrainerHomepageScreen";
 function App() {
   return (
 

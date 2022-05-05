@@ -5,7 +5,9 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Button } from '@mui/material'
 import './SingleworkoutUserScreen.css'
 
-const SingleworkoutUserScreen = () => {
+const SingleworkoutUserScreen = ({ data }) => {
+    const { workout } = data
+
     const [user, setUser] = useState()
     useEffect(() => {
         let data = localStorage.getItem("userInfo")
@@ -22,19 +24,15 @@ const SingleworkoutUserScreen = () => {
                 <div className='ProgramVideo'>
                     <img alt='' width={'100%'} height={'100%'} src='/images/youtube.png'></img>
                 </div>
-                <h3 className=' mt-2 programName text-danger'> f</h3>
+                <h3 className=' mt-2 programName text-danger'>{workout.workout}</h3>
             </Col>
-            <Col md={7} sm={12} className='Program-Description'>
+            <Col md={9} sm={12} className='Program-Description'>
                 <div>
-                    <p>fd</p>
-                    <h4>Trainer : <LinkContainer style={{ color: 'orange' }} to={'/'}><span >fd</span></LinkContainer></h4>
+                    <p>{workout.description}</p>
+                    <h4>Trainer : <LinkContainer style={{ color: 'orange' }} to={'/'}><span >{workout.trainer}</span></LinkContainer></h4>
                 </div>
             </Col>
-            <Col md={1} sm={12} className='program-Right'>
-                <div className='btn-cls ml-4'>
 
-                </div>
-            </Col>
         </Row>
     )
 }

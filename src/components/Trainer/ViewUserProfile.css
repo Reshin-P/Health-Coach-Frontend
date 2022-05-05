@@ -1,7 +1,7 @@
 .row-profile {
     margin-top: 60px;
     /* border: 2px solid red; */
-    height: 500px;
+    min-height: 500px;
     display: flex;
     justify-content: space-evenly;
 }

@@ -1,27 +1,18 @@
-import React from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { TextField, Button, Grid, Paper, Avatar } from "@mui/material"
-import { Link, useNavigate } from 'react-router-dom'
-import axios from '../../util/axios'
+import { Button, Grid, Paper, TextField } from "@mui/material";
 import Alert from '@mui/material/Alert';
-import './TrainerLogin.css'
-import {useEffect} from 'react'
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from 'react-router-dom';
+import './TrainerLogin.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { trainerLoginAction } from '../../actions/TrainerActions'
 
- 
+
 
 function TrainerLogin() {
-    const navigate = useNavigate() 
-       useEffect(() => {
-        const trainer=localStorage.getItem('trainer')
-        if(trainer){
-            navigate('/trainer')
-        }
-     
-       }, [])
-
-
-   
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [mailError, setMailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [loginerror, setLoginerror] = useState()
@@ -29,22 +20,42 @@ function TrainerLogin() {
         username: '',
         password: ''
     })
-    const { username, password } = login
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const FormSubmit = async (input) => {
-        try {
-            const response = await axios.post('/trainers/trainerlogin', { username, password })
-            if (response.data) {
-                localStorage.setItem('trainer', JSON.stringify(response.data))
-               navigate('/trainer')
-            }
-        } catch (err) {
-            setLoginerror(err.response.data.message)
-        }
-    }
+
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }
     const paperStyle = { padding: 20, height: '40vh', width: 380, margin: '20px auto' }
+
+    const { username, password } = login
+    const { trainerlogin: { trainerLogin, error, loading, sucess } } = useSelector((state) => {
+        return state
+    })
+
+    useEffect(() => {
+        const trainer = localStorage.getItem('trainer')
+        if (trainer) {
+            navigate('/trainer')
+        }
+        console.log("sucess", sucess);
+        if (sucess) {
+
+            navigate('/trainer')
+        }
+        if (sucess) {
+            console.log("sucess inde");
+            navigate('/trainer')
+        }
+    }, [sucess])
+
+
+
+    const FormSubmit = async (input) => {
+        dispatch(trainerLoginAction(username, password))
+        console.log("---------");
+        console.log(sucess);
+
+    }
+
+
 
     return (
         <div style={{ marginTop: '200px' }} >
@@ -58,7 +69,7 @@ function TrainerLogin() {
                         <p>{passwordError}</p>
                     </center>
                     </Grid>
-                    {loginerror && <Alert severity="error">{loginerror}</Alert>}
+                    {error && <Alert severity="error">{error}</Alert>}
                     <form onSubmit={handleSubmit(FormSubmit)}>
                         <TextField id="standard-basic" label="username" variant="standard" value={login.username} name="username" {...register('username', { required: "username is required" })} onChange={(event) => setLogin({ ...login, username: event.target.value })} fullWidth />
                         {errors?.email && errors.email.message}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
+import Alert from '@mui/material/Alert';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -39,9 +40,10 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function UserTableTrainerHomapage() {
     const [usersList, setUserList] = useState([])
+    const [emptyUser, setEmptyUser] = useState(false)
 
     useEffect(() => {
-
+        console.log("useEffect");
 
         let trainerInfo = localStorage.getItem("trainer")
         trainerInfo = JSON.parse(trainerInfo)
@@ -51,39 +53,45 @@ export default function UserTableTrainerHomapage() {
                 const { data } = await axios.get(`/trainers/getUsers/${trainerInfo._id}`)
                 setUserList(data)
             } catch (error) {
+                setEmptyUser(true)
                 console.log(error);
 
             }
         }
 
         getUser()
-    })
+    }, [])
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                        <StyledTableCell align="right">Calories</StyledTableCell>
-                        <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {usersList.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.user}</StyledTableCell>
-                            <StyledTableCell align="right">{row.user}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right"><Link to={`/viewuser/${row.user}`}><Button>View</Button></Link></StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <>
+            {emptyUser ? <Alert className='mt-5' variant="filled" severity="info">
+                No Subscription
+            </Alert> : <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
+                            <StyledTableCell align="right">Calories</StyledTableCell>
+                            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
+                            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+                            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {usersList.map((row) => (
+                            <StyledTableRow key={row.name}>
+                                <StyledTableCell component="th" scope="row">
+                                    {row.name}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{row.user}</StyledTableCell>
+                                <StyledTableCell align="right">{row.user}</StyledTableCell>
+                                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+                                <StyledTableCell align="right"><Link to={`/viewuser/${row.user}`}><Button>View</Button></Link></StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            }
+        </>
     );
 }

@@ -13,7 +13,10 @@ import {
     USER_WEIGHT_UPDATE_FAIL,
     USER_SUBCRIBED_WORKOUT_REQUEST,
     USER_SUBCRIBED_WORKOUT_SUCCESS,
-    USER_SUBCRIBED_WORKOUT_FAIL
+    USER_SUBCRIBED_WORKOUT_FAIL,
+    USER_PROFILE_PHOTO_REQUEST,
+    USER_PROFILE_PHOTO_SUCESS,
+    USER_PROFILE_PHOTO_FAIL
 } from '../constances/UserConstants'
 
 
@@ -172,6 +175,46 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_SUBCRIBED_WORKOUT_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+
+    }
+}
+
+//To upoad profile photo
+
+export const uploadProfilePhoto = (formData, userInfo) => async (dispatch) => {
+    let userInfo = await localStorage.getItem('userInfo')
+    userInfo = JSON.parse(userInfo)
+    console.log(userInfo);
+    console.log("reached upload photo");
+    console.log(formData);
+    dispatch({
+        type: USER_PROFILE_PHOTO_REQUEST
+    })
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${userInfo.token}`,
+            }
+        }
+        const { data } = await axios.patch('/user/profilephoto', formData, config)
+        const user = await localStorage.setItem('userInfo', JSON.stringify(data))
+        dispatch({
+            type: USER_PROFILE_PHOTO_SUCESS,
+            payload: data
+        })
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_PROFILE_PHOTO_FAIL,
             payload: error.response && error.response.data.message
                 ? error.data.message
                 : error.message

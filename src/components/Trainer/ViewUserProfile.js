@@ -1,10 +1,10 @@
-import React from 'react'
-import { Row, Col } from 'react-bootstrap'
-import './ViewUserProfile.css'
-import { CONNECT_TRAINER, DIET_INSTRUCTION, DIET_PLAN, MESSAGE, VIDEO_CALL, WHATSAPP } from '../../constances/SubscribedWorkout';
-import { Button } from 'react-bootstrap'
+import React from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { CONNECT_TRAINER, MESSAGE, VIDEO_CALL, WHATSAPP } from '../../constances/SubscribedWorkout';
+import './ViewUserProfile.css';
 
-const ViewUserProfile = () => {
+
+const ViewUserProfile = ({ user }) => {
     return (
         <Row className='row-profile' >
             <Col sm={12} lg={7} md={12} xl={7} className='Col1' >
@@ -29,19 +29,19 @@ const ViewUserProfile = () => {
                             :
                         </div>
                         <div className='value'>
-                            <p>Reshfddfdfdfi</p>
+                            <p>{user.email}</p>
                         </div>
                     </div>
 
                     <div className='text'>
                         <div className='key'>
-                            <p>Mob NO </p>
+                            <p>Mob no </p>
                         </div>
                         <div className='colon'>
                             :
                         </div>
                         <div className='value'>
-                            <p>Reshi</p>
+                            <p>{user.phone}</p>
                         </div>
                     </div>
                     <div className='text'>
@@ -52,7 +52,7 @@ const ViewUserProfile = () => {
                             :
                         </div>
                         <div className='value'>
-                            <p>55</p>
+                            <p>{user.age}</p>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@ const ViewUserProfile = () => {
                             :
                         </div>
                         <div className='value'>
-                            <p>44</p>
+                            <p>{user.height}</p>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@ const ViewUserProfile = () => {
                             :
                         </div>
                         <div className='value'>
-                            <p>Reshi</p>
+                            <p>{user.weight}</p>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@ const ViewUserProfile = () => {
                             :
                         </div>
                         <div className='value'>
-                            <p>Reshi</p>
+                            <p>{user.healthcondition}</p>
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@ const ViewUserProfile = () => {
                 </div>
 
             </Col>
-            <Col sm={12} lg={4} md={12} xl={4} className='Col1 border shadow ' >
+            <Col xs={10} sm={10} lg={4} md={8} xl={4} className='Col1 border shadow ' >
                 <div className="connect ">
                     <h2>{CONNECT_TRAINER}</h2>
                     <Button className="mt-5 btn1" variant="contained">{VIDEO_CALL}</Button>

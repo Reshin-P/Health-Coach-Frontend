@@ -12,7 +12,7 @@ import {loginForm} from '../actions/userActions'
  
 
 function Login() {
-    const {loading,error,userInfo}=useSelector((state)=> state.loginUser)
+    const {loading,error,sucess,userInfo}=useSelector((state)=> state.loginUser)
     const dispatch=useDispatch()
     const navigate = useNavigate()
     const [mailError, setMailError] = useState('')
@@ -26,9 +26,11 @@ function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const FormSubmit = async (input) => {
         dispatch(loginForm(login))
-    setTimeout(() => {
-        navigate('/')
-    }, 2000);
+   if(sucess){
+  
+       navigate('/')
+   }
+   
       
     }
     const avatarStyle = { backgroundColor: 'green' }

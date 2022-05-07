@@ -5,7 +5,7 @@ import { programReducer } from '../reducers/programReducer'
 import { workoutReducer, allWorkoutsReducer } from '../reducers/workoutReducers'
 import { UserWorkouts } from '../reducers/TrainersReducers'
 import { veryuserReducer, subcribeWorkouts, userprofileEditReducer, LoginCheckReducer, userWeightUpdate, uploadProfilePhoto } from '../reducers/userReducers'
-import { verytrainerReducer, trainerLoginReducer } from '../reducers/TrainersReducers'
+import { verytrainerReducer, trainerLoginReducer, uploadTrainerProfilePhoto, updateProfile } from '../reducers/TrainersReducers'
 import { AdminLoginReducer } from '../reducers/AdminReducers'
 
 const reducer = combineReducers({
@@ -20,8 +20,10 @@ const reducer = combineReducers({
     subcribe: subcribeWorkouts,
     userworoutsTrainer: UserWorkouts,
     profilePhoto: uploadProfilePhoto,
+    trainerPhoto: uploadTrainerProfilePhoto,
     trainerInfo: verytrainerReducer,
-    trainerlogin: trainerLoginReducer
+    trainerlogin: trainerLoginReducer,
+    updateTrainerProfile: updateProfile
 })
 
 const initialState = {}

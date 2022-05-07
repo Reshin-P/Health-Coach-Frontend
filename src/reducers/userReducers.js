@@ -87,6 +87,8 @@ export const LoginCheckReducer = (state = { userInfo: {} }, { type, payload }) =
             return { ...state, sucess: true, loading: false, loginUser: payload }
         case USER_LOGIN_FAIL:
             return { ...state, loading: false, error: payload }
+        case USER_LOGOUT:
+            return {}
         default: return state
     }
 }
@@ -101,6 +103,8 @@ export const subcribeWorkouts = (state = { subcribedworkouts: [] }, { type, payl
             return { ...state, loading: false, subcribedworkouts: payload }
         case USER_SUBCRIBED_WORKOUT_FAIL:
             return { ...state, loading: false, error: payload }
+        case USER_LOGOUT:
+            return {}
         default:
             return state
     }
@@ -117,6 +121,8 @@ export const uploadProfilePhoto = (state = { userprofilePhoto: {} }, { type, pay
             return { ...state, loadingphoto: false, photosucess: true, photo: payload }
         case USER_PROFILE_PHOTO_FAIL:
             return { ...state, loadingphoto: false, error: payload }
+        case USER_LOGOUT:
+            return {}
         default:
             return state
     }

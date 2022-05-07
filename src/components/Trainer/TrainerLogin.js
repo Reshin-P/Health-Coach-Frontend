@@ -23,7 +23,7 @@ function TrainerLogin() {
 
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }
-    const paperStyle = { padding: 20, height: '40vh', width: 380, margin: '20px auto' }
+    const paperStyle = { padding: 20, height: 'auto', width: 380, margin: '20px auto' }
 
     const { username, password } = login
     const { trainerlogin: { trainerLogin, error, loading, sucess } } = useSelector((state) => {

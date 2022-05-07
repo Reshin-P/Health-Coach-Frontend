@@ -17,7 +17,7 @@ const certificates = [
     { name: "NCSF" },
     { name: "ACE" },
     { name: "NASM" },
-    
+
 
 ];
 const streamslist = [
@@ -25,25 +25,25 @@ const streamslist = [
     { name: 'Gym Trainer' },
     { name: 'Cardio Trainer' },
     { name: 'Meditation Trainer' },
-  
+
 ]
 const TrainerSignupForm = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signuperror, setsignuperror] = useState(false)
     const [certifications, setCertifications] = useState([])
     const [streams, setStreams] = useState([])
 
     const onSubmit = async (data) => {
-       
+
         const { name, username, email, phone, password } = data;
-        try {    
+        try {
             const response = await axios.post('trainers/trainers', { name, username, email, phone, password, certifications, streams })
-            if(response.data){
+            if (response.data) {
                 navigate('/trainerLogin')
             }
         } catch (err) {
-           
+
             setsignuperror(err.response.data.message)
 
         }
@@ -142,7 +142,7 @@ const TrainerSignupForm = () => {
                         </Grid>
 
                         <Grid item xs={12} lg={6} xl={6} md={6} sm={6}>
-                           
+
                         </Grid>
 
                         <Grid item xs={12} lg={6} xl={6} md={6} sm={6}>

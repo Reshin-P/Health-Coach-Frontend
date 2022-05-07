@@ -30,12 +30,10 @@ function Login() {
   
        navigate('/')
    }
-   
-      
     }
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }
-    const paperStyle = { padding: 20, height: '40vh', width: 380, margin: '20px auto' }
+    const paperStyle = { padding: 20, height: 'auto', width: 380, margin: '20px auto' }
 
     return (
         <div style={{ marginTop: '200px' }} >

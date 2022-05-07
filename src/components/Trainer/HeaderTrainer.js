@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { WORKOUTS, BLOG, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../../constances/HomePageConstants'
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { LogoutTrainer } from '../../actions/TrainerActions'
+import { BLOG, MY_PROFILE, MY_WORKOUTS, TRAINER, WORKOUTS } from '../../constances/HomePageConstants';
+import { useDispatch } from 'react-redux';
 
 
 const HeaderTrainer = () => {
+  const dispatch = useDispatch()
   const [trainer, setTrainer] = useState()
   const navigate = useNavigate()
   useEffect(() => {
@@ -41,8 +44,10 @@ const HeaderTrainer = () => {
   };
 
   const logout = () => {
+
     console.log("rererere");
-    localStorage.clear("trainer")
+    dispatch(LogoutTrainer())
+
 
 
   }
@@ -249,7 +254,7 @@ const HeaderTrainer = () => {
             onClose={handleCloseUserMenu}
           >
             <MenuItem onClick={handleCloseUserMenu}>
-              <Link style={{ textDecoration: 'none', color: 'black' }} to={'/myprofile'}><Typography textAlign="center">{MY_PROFILE}</Typography></Link>
+              <Link style={{ textDecoration: 'none', color: 'black' }} to={'/trainerprofile'}><Typography textAlign="center">{MY_PROFILE}</Typography></Link>
 
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>

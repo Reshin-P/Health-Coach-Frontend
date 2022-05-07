@@ -39,7 +39,6 @@ export const veryfyUser = () => async (dispatch) => {
 //User LoginForm
 
 export const loginForm = ({ username, password }) => async (dispatch) => {
-
     dispatch({
         type: USER_LOGIN_REQUEST
     })
@@ -77,7 +76,7 @@ export const Logout = () => async (dispatch) => {
 
 //User Profile Update
 
-export const userUpdate = (user) => async (dispatch, getState) => {
+export const userUpdate = (detail) => async (dispatch, getState) => {
 
     dispatch({
         type: USER_UPDATE_REQUEST,
@@ -93,7 +92,7 @@ export const userUpdate = (user) => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
-        const { data } = await axios.put(`/user/${userInfo._id}`, user, config)
+        const { data } = await axios.put(`/user/${userInfo._id}`, detail, config)
         localStorage.setItem('userInfo', JSON.stringify(data))
 
         dispatch({

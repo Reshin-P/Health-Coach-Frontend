@@ -1,54 +1,27 @@
-import React, { useRef, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
-import './ChatScreen.css'
-import Message from '../components/Chat/Message/Message'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import axios from '../util/axios'
-import { io } from "socket.io-client"
+import Message from '../../components/Chat/Message/Message'
+import axios from '../../util/axios'
+import './TrainerChatscreen.css'
 
-const ChatScreen = () => {
 
+
+
+
+const TrainerChatscreen = () => {
     const params = useParams()
     const [inpuText, setInputText] = useState("")
     const [conversation, setConversation] = useState(null)
     const [message, setMessage] = useState([])
-    const [arrivalMessage, setArrivalMessage] = useState(null)
-
-    // const [Socket, setSoket] = useState(null)
-    const Socket = useRef();
-    const { user: { userInfo } } = useSelector((state) => {
+    const { trainerInfo: { trainerInfo } } = useSelector((state) => {
         return state
     })
 
-    useEffect(() => {
-        Socket.current = io("http://localhost:5000")
-        Socket.current.on("getMessage", data => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now
-
-            })
-
-        })
-    })
-    // useEffect(()=>{
-    // },[arrivalMessage])
-
-
-    useEffect(() => {
-        Socket.current.emit("addUser", userInfo._id)
-        Socket.current.on("getUsers", user => {
-            console.log(user);
-        })
-    }, [userInfo])
-
-
-
-
     const createconversation = async () => {
+
+
         const chat = {
             user: params.user,
             trainer: params.trainer
@@ -64,14 +37,8 @@ const ChatScreen = () => {
     const sendMessage = async () => {
         let details = {
             text: inpuText,
-            sender: userInfo._id,
+            sender: trainerInfo._id,
             conversationId: conversation._id
-        }
-        Socket.current.emit("sendMessage"), {
-            senderId: userInfo._id,
-            reciverId: params.trainer,
-            text: inpuText
-
         }
         try {
             const { data } = await axios.post('/message', details)
@@ -102,7 +69,7 @@ const ChatScreen = () => {
                 <Col xs={12}>
                     {message.map((msg) => (
 
-                        <Message message={msg} own={msg.sender === userInfo._id} />
+                        <Message message={msg} own={msg.sender === trainerInfo._id} />
 
                     ))
                     }
@@ -117,4 +84,4 @@ const ChatScreen = () => {
     )
 }
 
-export default ChatScreen 
+export default TrainerChatscreen 

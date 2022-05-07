@@ -1,10 +1,16 @@
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { CONNECT_TRAINER, MESSAGE, VIDEO_CALL, WHATSAPP } from '../../constances/SubscribedWorkout';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './ViewUserProfile.css';
 
 
 const ViewUserProfile = ({ user }) => {
+
+    const { trainerInfo: { trainerInfo } } = useSelector((state) => {
+        return state
+    })
     return (
         <Row className='row-profile' >
             <Col sm={12} lg={7} md={12} xl={7} className='Col1' >
@@ -100,11 +106,12 @@ const ViewUserProfile = ({ user }) => {
                 </div>
 
             </Col>
-            <Col xs={10} sm={10} lg={4} md={8} xl={4} className='Col1 border shadow ' >
+            <Col xs={10} sm={10} lg={4} md={8} xl={4} className='Col2   ' >
                 <div className="connect ">
                     <h2>{CONNECT_TRAINER}</h2>
-                    <Button className="mt-5 btn1" variant="contained">{VIDEO_CALL}</Button>
-                    <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button>
+                    <Button className=" btn1" variant="contained">{VIDEO_CALL}</Button>
+                    <Link to={`/trainerchat/${user._id}/${trainerInfo._id}`}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
+
                     <Button className="mt-5 btn3" variant="contained">{WHATSAPP}</Button>
                 </div>
             </Col>

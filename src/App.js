@@ -15,6 +15,7 @@ import SubcribedWorkouts from "./screens/SubcribedWorkoutsScreen";
 import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
 import AddWorkoutScreen from "./screens/Trainer/AddWorkoutScreen";
 import ManageWorkout from "./screens/Trainer/ManageWorkoutScreen";
+import TrainerChatscreen from "./screens/Trainer/TrainerChatscreen";
 import WorkoutEditScreen from './screens/Trainer/WorkoutEditScreen';
 import AdminHomepageScreen from "./screens/Admin/AdminHomepageScreen";
 import TrainerLoginScreen from "./screens/Trainer/TrainerLoginScreen";
@@ -47,6 +48,8 @@ function App() {
         <Route path='/trainersignup' element={<TrainerSignupScreen />} />
         <Route path="/editWorkout/:id" element={<WorkoutEditScreen />} />
         <Route path="/AddWorkoutScreen" element={<AddWorkoutScreen />} />
+        <Route path="/trainerprofile" element={<TrainerProfileScreen />} />
+        <Route path="/trainerchat/:user/:trainer" element={<TrainerChatscreen />} />
 
       </Routes>
     </BrowserRouter>

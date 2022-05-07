@@ -1,3 +1,4 @@
+import axios from '../util/axios'
 import {
     USER_WORKOUT_REQUEST,
     USER_WORKOUT_SUCESS,
@@ -6,7 +7,14 @@ import {
     TRAINER_VERYFY,
     TRAINER_LOGIN_REQUEST,
     TRAINER_LOGIN_SUCESS,
-    TRAINER_LOGIN_FAIL
+    TRAINER_LOGIN_FAIL,
+    TRAINER_LOGOUT,
+    TRAINER_PROFILE_PHOTO_REQUEST,
+    TRAINER_PROFILE_PHOTO_SUCESS,
+    TRAINER_PROFILE_PHOTO_FAIL,
+    TRAINER_PROFIE_UPDATE_REQUEST,
+    TRAINER_PROFILE_UPDATE_SUCESS,
+    TRAINER_PROFILE_UPDATE_FAIL
 } from '../constances/TrainerReduxConstants'
 
 // TO GET USER WORKOUTS
@@ -40,11 +48,11 @@ if (data) {
 
 // To Veryfy the TRAINER
 
-export const verytrainerReducer = (state = { userInfo: data }, action) => {
+export const verytrainerReducer = (state = { trainerInfo: data }, action) => {
 
     switch (action.type) {
         case TRAINER_VERYFY:
-            return { ...state, userInfo: action.payload }
+            return { ...state, trainerInfo: action.payload }
         default: return state
 
     }
@@ -61,7 +69,45 @@ export const trainerLoginReducer = (state = { trainerLogin: {} }, { type, payloa
             return { ...state, loading: false, sucess: true, trainerLogin: payload }
         case TRAINER_LOGIN_FAIL:
             return { ...state, loading: false, error: payload }
+        case TRAINER_LOGOUT:
         default:
             return state
     }
+}
+
+//To upload profile photo
+
+
+export const uploadTrainerProfilePhoto = (state = { trainerprofilePhoto: {} }, { type, payload }) => {
+    switch (type) {
+        case TRAINER_PROFILE_PHOTO_REQUEST:
+            return { ...state, loadingphoto: true }
+        case TRAINER_PROFILE_PHOTO_SUCESS:
+            return { ...state, loadingphoto: false, photosucess: true, photo: payload }
+        case TRAINER_PROFILE_PHOTO_FAIL:
+            return { ...state, loadingphoto: false, error: payload }
+        case TRAINER_LOGOUT:
+            return {}
+        default:
+            return state
+    }
+
+}
+
+
+//To update Trainer profile
+
+export const updateProfile = (state = { profileupdate: {} }, { type, payload }) => {
+    switch (type) {
+        case TRAINER_PROFIE_UPDATE_REQUEST:
+            return { ...state, loading: true }
+        case TRAINER_PROFILE_UPDATE_SUCESS:
+            return { ...state, loading: false, sucess: true, profileupdate: payload }
+        case TRAINER_PROFILE_UPDATE_FAIL:
+            return { ...state, loading: false, error: payload }
+        default:
+            return state
+    }
+
+
 }

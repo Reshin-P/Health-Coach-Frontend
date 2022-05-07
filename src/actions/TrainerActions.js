@@ -3,26 +3,34 @@ import {
     USER_WORKOUT_REQUEST,
     USER_WORKOUT_SUCESS,
     USER_WORKOUT_FAIL,
-    USER_WORKOUT_NULL,
     TRAINER_LOGIN_REQUEST,
     TRAINER_LOGIN_SUCESS,
-    TRAINER_LOGIN_FAIL
+    TRAINER_LOGIN_FAIL,
+    TRAINER_LOGOUT,
+    TRAINER_VERYFY,
+    TRAINER_PROFILE_PHOTO_SUCESS,
+    TRAINER_PROFILE_PHOTO_REQUEST,
+    TRAINER_PROFILE_PHOTO_FAIL,
+    TRAINER_PROFIE_UPDATE_REQUEST,
+    TRAINER_PROFILE_UPDATE_SUCESS
 } from '../constances/TrainerReduxConstants.js'
 
 //FOR LOGIN TRAINER
 
 export const trainerLoginAction = (username, password) => async (dispatch) => {
-    console.log(username);
-    console.log(password);
+
     dispatch({ type: TRAINER_LOGIN_REQUEST })
     try {
         const { data } = await axios.post('/trainers/trainerlogin', { username, password })
-        console.log(data);
+        localStorage.setItem('trainer', JSON.stringify(data))
         dispatch({
             type: TRAINER_LOGIN_SUCESS,
             payload: data
         })
-        localStorage.setItem('trainer', JSON.stringify(data))
+        dispatch({
+            type: TRAINER_VERYFY,
+            payload: data
+        })
 
     } catch (error) {
         dispatch({
@@ -31,7 +39,6 @@ export const trainerLoginAction = (username, password) => async (dispatch) => {
                 ? error.response.data.message
                 : error.message
         })
-
     }
 }
 
@@ -46,7 +53,6 @@ export const getUserWorkouts = (id) => async (dispatch) => {
     })
     let trainerInfo = localStorage.getItem('trainer')
     trainerInfo = JSON.parse(trainerInfo)
-    console.log("trainer info", trainerInfo);
     try {
         const config = {
             headers: {
@@ -68,3 +74,94 @@ export const getUserWorkouts = (id) => async (dispatch) => {
         })
     }
 }
+
+//To logot trainer
+
+export const LogoutTrainer = () => async (dispatch) => {
+
+    localStorage.removeItem("trainer")
+    dispatch({
+        type: TRAINER_LOGOUT
+    })
+}
+
+
+
+//To upoad profile photo
+
+export const uploadProfilePhoto = (formData) => async (dispatch) => {
+
+    let trainerInfo = await localStorage.getItem('trainer')
+    trainerInfo = JSON.parse(trainerInfo)
+    dispatch({
+        type: TRAINER_PROFILE_PHOTO_REQUEST
+    })
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${trainerInfo.token}`,
+            }
+        }
+        const { data } = await axios.patch('/trainers/profilephoto', formData, config)
+
+        localStorage.setItem('trainer', JSON.stringify(data))
+        dispatch({
+            type: TRAINER_PROFILE_PHOTO_SUCESS,
+            payload: data
+        })
+        dispatch({
+            type: TRAINER_LOGIN_SUCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: TRAINER_PROFILE_PHOTO_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+    }
+}
+
+
+//To update trainer profile
+
+export const updateProfile = (detail) => async (dispatch, getState) => {
+    console.log(detail);
+    console.log("reached update action");
+    dispatch({
+        type: TRAINER_PROFIE_UPDATE_REQUEST
+    })
+    const {
+        trainerInfo: { trainerInfo },
+    } = getState();
+
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${trainerInfo.token}`,
+        },
+    };
+
+    try {
+        console.log("try");
+        const { data } = await axios.put(`/trainers/${trainerInfo._id}`, detail)
+        console.log(data);
+        await localStorage.setItem('trainer', JSON.stringify(data))
+        dispatch({
+            type: TRAINER_PROFILE_UPDATE_SUCESS,
+            payload: data
+        })
+        dispatch({
+            type: TRAINER_VERYFY,
+            payload: data
+        })
+    } catch (error) {
+
+    }
+
+
+} 

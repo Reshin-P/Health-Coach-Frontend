@@ -7,7 +7,7 @@ const ViewUserPhoto = ({ user }) => {
         <>
             <Row className='photoRow' style={{ height: 'auto' }}>
                 <Col className='photoCol1' xl={3} lg={3} md={12} sm={12}>
-                    <img className='profilePhoto' alt='' src='/images/profile/mariya.png'></img>
+                    <img className='profilePhoto' alt='' src={user.profilephoto}></img>
                 </Col>
                 <Col className='photoCol2 ' xl={4} lg={4} md={12} sm={12}>
                     <h1 className='user-name'>{user.name}</h1>

@@ -10,11 +10,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
-import { LogoutTrainer } from '../../actions/TrainerActions'
-import { BLOG, MY_PROFILE, MY_WORKOUTS, TRAINER, WORKOUTS } from '../../constances/HomePageConstants';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { LogoutTrainer } from '../../actions/TrainerActions';
+import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
+import { BLOG, LOGOUT, MY_PROFILE, MY_WORKOUTS, TRAINER, WORKOUTS } from '../../constances/HomePageConstants';
 
 
 const HeaderTrainer = () => {
@@ -47,6 +47,7 @@ const HeaderTrainer = () => {
 
     console.log("rererere");
     dispatch(LogoutTrainer())
+    navigate('/trainerlogin')
 
 
 
@@ -125,7 +126,7 @@ const HeaderTrainer = () => {
           component="div"
           sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
         >
-          <Link to={'/'}> <img alt='' height={'100px'} src='/images/profile/logo.png'></img></Link>
+          <Link to={'/trainer'}> <img alt='' height={'100px'} src='/images/profile/logo.png'></img></Link>
         </Typography>
 
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -226,9 +227,9 @@ const HeaderTrainer = () => {
         {/* {!user && <Link to={'/signup'}><Button sx={{ marginRight: "9px" }} variant="outlined" >
         Signup
       </Button></Link>} */}
-        {trainer && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
+        {/* {trainer && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
           Logout
-        </Button>}
+        </Button>} */}
 
 
         {trainer && <Box sx={{ flexGrow: 0 }}>
@@ -259,6 +260,10 @@ const HeaderTrainer = () => {
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
               <Link style={{ textDecoration: 'none', color: 'black' }} to={'/myworkouts'}><Typography textAlign="center">{MY_WORKOUTS}</Typography></Link>
+
+            </MenuItem>
+            <MenuItem onClick={handleCloseUserMenu}>
+              <Typography onClick={logout} textAlign="center">{LOGOUT}</Typography>
 
             </MenuItem>
 

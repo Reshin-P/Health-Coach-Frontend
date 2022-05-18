@@ -28,6 +28,7 @@ const MyProfile = () => {
 
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
     const { user: { userInfo } } = useSelector((state) => {
         return state
     })
@@ -115,11 +116,11 @@ const MyProfile = () => {
                         <div className='input_H mt-4'>
                             <div>
 
-                                <TextField onChange={(e) => setWeight(e.target.value)} style={{ width: '80%' }} id="outlined-basic" label='Enter weight' variant="outlined" />
+                                <TextField label={userInfo.weight} onChange={(e) => setWeight(e.target.value)} style={{ width: '80%' }} id="outlined-basic" variant="outlined" />
                             </div>
                             <div className='mt-4'>
 
-                                <Button type='submit' className='weight-btn' variant="contained">{UPDATE}</Button>
+                                <Button type='submit' className='weight-btn' variant="contained">Weight</Button>
                             </div>
                         </div>
                     </form>

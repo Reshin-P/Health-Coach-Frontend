@@ -49,6 +49,8 @@
     background-color: #FFFC00 !important;
     font-size: 20px !important;
     font-weight: bold !important;
+    width: 100%;
+
 }
 
 .btn3 {
@@ -56,4 +58,11 @@
     font-weight: bold !important;
     height: 60px;
     background-color: #25D366 !important;
+}
+
+.link-btn {
+
+    text-decoration: none;
+    text-decoration-line: none;
+
 }

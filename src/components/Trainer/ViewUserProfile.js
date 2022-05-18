@@ -23,7 +23,7 @@ const ViewUserProfile = ({ user }) => {
                             :
                         </div>
                         <div className='value'>
-                            <p>Reshi</p>
+                            <p>{user.name}</p>
                         </div>
                     </div>
 
@@ -110,7 +110,7 @@ const ViewUserProfile = ({ user }) => {
                 <div className="connect ">
                     <h2>{CONNECT_TRAINER}</h2>
                     <Button className=" btn1" variant="contained">{VIDEO_CALL}</Button>
-                    <Link to={`/trainerchat/${user._id}/${trainerInfo._id}`}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
+                    <Link className="mt-5 btn2" to={`/chat/${trainerInfo._id}/${user._id}`}> <Button variant="contained">{MESSAGE}</Button></Link>
 
                     <Button className="mt-5 btn3" variant="contained">{WHATSAPP}</Button>
                 </div>

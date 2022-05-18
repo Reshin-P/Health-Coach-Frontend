@@ -52,7 +52,7 @@ const SubcribedWorkoutDiet = () => {
                     <div className="connect ">
                         <h2>{CONNECT_TRAINER}</h2>
                         <Button className="mt-5 btn1" variant="contained">{VIDEO_CALL}</Button>
-                        <Link to={`/chat/${userInfo._id}/${workout.trainerid}`}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
+                        <Link className='link-btn' to={`/chat/${userInfo._id}/${workout.trainerid}`}> <Button className="mt-5 btn2" variant="contained">{MESSAGE}</Button></Link>
                         <Button className="mt-5 btn3" variant="contained">{WHATSAPP}</Button>
                     </div>
 

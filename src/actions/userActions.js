@@ -43,9 +43,9 @@ export const loginForm = ({ username, password }) => async (dispatch) => {
         type: USER_LOGIN_REQUEST
     })
     try {
-        console.log("try");
+
         const { data } = await axios.post('/user/login', { username, password })
-        await localStorage.setItem('userInfo', JSON.stringify(data))
+        localStorage.setItem('userInfo', JSON.stringify(data))
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: data
@@ -158,6 +158,7 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
     })
 
     try {
+        console.log("try");
 
         const config = {
             headers: {
@@ -165,7 +166,10 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         }
+        console.log(userInfo._id);
         const { data } = await axios.get(`/subcribe/${userInfo._id}`)
+        console.log(data);
+        console.log("-------data   ------");
         dispatch({
             type: USER_SUBCRIBED_WORKOUT_SUCCESS,
             payload: data

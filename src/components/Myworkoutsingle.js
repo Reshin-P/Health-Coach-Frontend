@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Button } from '@mui/material'
+import ReactPlayer from 'react-player'
 import './Myworkoutsingle.css'
 
 const Myworkoutsingle = (props) => {
@@ -20,7 +21,7 @@ const Myworkoutsingle = (props) => {
         <Row key={_id} className='SingleProgram mt-5 border  shadow'>
             <Col lg={3} md={3} className='programLeft'>
                 <div className='ProgramVideo'>
-                    <img alt='' width={'100%'} height={'100%'} src='/images/youtube.png'></img>
+                    <ReactPlayer width={'100%'} height={'200px'} url={preview} muted controls ></ReactPlayer>
                 </div>
                 <h3 className=' mt-2 programName text-danger'> {workout}</h3>
             </Col>
@@ -32,7 +33,7 @@ const Myworkoutsingle = (props) => {
             </Col>
             <Col md={1} sm={12} className='program-Right'>
                 <div className='btn-cls ml-4'>
-                    <Link to={`/workoutsub/${_id}`} style={{ textDecoration: "none/" }} >    <Button style={{ background: 'green' }} variant="contained">Start</Button>  </Link>
+                    <Link to={`/workoutsub/${_id}`} style={{ textDecoration: "none" }} >    <Button style={{ background: 'green' }} variant="contained">Start</Button>  </Link>
                 </div>
             </Col>
         </Row>

@@ -5,8 +5,8 @@ import { programReducer } from '../reducers/programReducer'
 import { workoutReducer, allWorkoutsReducer } from '../reducers/workoutReducers'
 import { UserWorkouts } from '../reducers/TrainersReducers'
 import { veryuserReducer, subcribeWorkouts, userprofileEditReducer, LoginCheckReducer, userWeightUpdate, uploadProfilePhoto } from '../reducers/userReducers'
-import { verytrainerReducer, trainerLoginReducer, uploadTrainerProfilePhoto, updateProfile } from '../reducers/TrainersReducers'
-import { AdminLoginReducer } from '../reducers/AdminReducers'
+import { verytrainerReducer, trainerLoginReducer, uploadTrainerProfilePhoto, updateProfile, getSubcribedUsers, SingleTrainer, trainerWorkoutReducer } from '../reducers/TrainersReducers'
+import { AdminLoginReducer, AdminAllWorkoutsReducers, BlockWorkoutReducer, getAlltrainers, BlockUnblockTrainerReducer, allUserReducers, BlockUnblockUserReducer, getNewTrainerReducer, acceptRequest } from '../reducers/AdminReducers'
 
 const reducer = combineReducers({
     programList: programReducer,
@@ -23,7 +23,19 @@ const reducer = combineReducers({
     trainerPhoto: uploadTrainerProfilePhoto,
     trainerInfo: verytrainerReducer,
     trainerlogin: trainerLoginReducer,
-    updateTrainerProfile: updateProfile
+    updateTrainerProfile: updateProfile,
+    subcribedUsers: getSubcribedUsers,
+    singleTrainer: SingleTrainer,
+    trainerWorkout: trainerWorkoutReducer,
+    adminAllWorkouts: AdminAllWorkoutsReducers,
+    blockWorkout: BlockWorkoutReducer,
+    getAlltrainers: getAlltrainers,
+    blockTrainer: BlockUnblockTrainerReducer,
+    allusers: allUserReducers,
+    blockUser: BlockUnblockUserReducer,
+    newTrainer: getNewTrainerReducer,
+    acceptTrainer: acceptRequest
+
 })
 
 const initialState = {}

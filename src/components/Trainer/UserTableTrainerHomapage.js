@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
-import Alert from '@mui/material/Alert';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import axios from '../../util/axios'
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getSubcribedUsers } from '../../actions/TrainerActions';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -39,53 +41,55 @@ function createData(name, calories, fat, carbs, protein) {
 
 
 export default function UserTableTrainerHomapage() {
+
+
+
     const [usersList, setUserList] = useState([])
     const [emptyUser, setEmptyUser] = useState(false)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         console.log("useEffect");
 
         let trainerInfo = localStorage.getItem("trainer")
-        trainerInfo = JSON.parse(trainerInfo)
+        if (trainerInfo) {
+            trainerInfo = JSON.parse(trainerInfo)
 
-        const getUser = async () => {
-            try {
-                const { data } = await axios.get(`/trainers/getUsers/${trainerInfo._id}`)
-                setUserList(data)
-            } catch (error) {
-                setEmptyUser(true)
-                console.log(error);
+            dispatch(getSubcribedUsers(trainerInfo._id))
 
-            }
         }
 
-        getUser()
     }, [])
+    // const { user: { userInfo } } = useSelector((state) => {
+    //     return state
+    // })
+
+    const { subcribedUsers: { userList, loading, error } } = useSelector((state) => { return state })
+
     return (
         <>
-            {emptyUser ? <Alert className='mt-5' variant="filled" severity="info">
-                No Subscription
-            </Alert> : <TableContainer component={Paper}>
+
+            {loading ? <CircularProgress /> : <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                            <StyledTableCell align="right">Calories</StyledTableCell>
-                            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                            <StyledTableCell>User Name</StyledTableCell>
+                            <StyledTableCell align="right">Email</StyledTableCell>
+                            <StyledTableCell align="right">Mob No</StyledTableCell>
+                            <StyledTableCell align="right">Age</StyledTableCell>
+                            <StyledTableCell align="right">View</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {usersList.map((row) => (
-                            <StyledTableRow key={row.name}>
+                        {userList.map((row) => (
+                            <StyledTableRow key={row._id}>
                                 <StyledTableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.user.name}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{row.user}</StyledTableCell>
-                                <StyledTableCell align="right">{row.user}</StyledTableCell>
-                                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                                <StyledTableCell align="right"><Link to={`/viewuser/${row.user}`}><Button>View</Button></Link></StyledTableCell>
+                                <StyledTableCell align="">{row.user.email}</StyledTableCell>
+                                <StyledTableCell align="right">{row.user.phone}</StyledTableCell>
+                                <StyledTableCell align="right">{row.user.age}</StyledTableCell>
+                                <StyledTableCell align="right"><Link to={`/viewuser/${row.user._id}`}><Button>View</Button></Link></StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>

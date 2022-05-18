@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import './Header.css'
 import { Link } from 'react-router-dom';
-import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, BLOG, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../constances/HomePageConstants'
+import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../constances/HomePageConstants'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,10 +24,10 @@ const ResponsiveAppBar = () => {
   const [user, setUser] = useState('')
   const navigate = useNavigate()
   const [log, setLog] = useState(false)
-  // const { user: { userInfo } } = useSelector((state) => {
-  //   return state
-  // })
 
+  const { user: { userInfo, logouted } } = useSelector((state) => {
+    return state
+  })
 
   useEffect(() => {
 
@@ -36,15 +36,17 @@ const ResponsiveAppBar = () => {
       let data = JSON.parse(userInfo)
       setUser(data)
     }
+
   }, [])
-  console.log(user);
-  console.log("..../////..../////....////");
+
+  //logout fuction
   const logout = () => {
     dispatch(Logout())
     setTimeout(() => {
       navigate('/login')
     }, 0);
   };
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -114,34 +116,30 @@ const ResponsiveAppBar = () => {
               >
                 {FREE_WORKOUTS}
               </Button>
-              <Button
+              <Link style={{ textDecorationLine: 'none' }} to={'/programs'}>  <Button
 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {PROGRAMS}
-              </Button>
-              <Button
+              </Button></Link>
+              <Link style={{ textDecorationLine: 'none' }} to={'/workout'}>      <Button
 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {WORKOUTS}
-              </Button>
-              <Button
+              </Button>       </Link>
+
+
+
+              {!user && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {BLOG}
-              </Button>
-              <Button
-
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {ABOUT}
-              </Button>
+                {TRAINER}
+              </Button></Link>}
             </MenuItem>
 
           </Menu>
@@ -163,34 +161,29 @@ const ResponsiveAppBar = () => {
           >
             {FREE_WORKOUTS}
           </Button>
-          <Button
+          <Link style={{ textDecorationLine: 'none' }} to={'/programs'}>  <Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {PROGRAMS}
-          </Button>
-          <Button
+          </Button></Link>
+          <Link style={{ textDecorationLine: 'none' }} to={'/workout'}>      <Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {WORKOUTS}
-          </Button>
-          <Button
+          </Button>       </Link>
 
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'black', display: 'block' }}
-          >
-            {BLOG}
-          </Button>
-          <Button
+
+          {/* <Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
           >
             {ABOUT}
-          </Button>
+          </Button> */}
           {!user && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
 
             onClick={handleCloseNavMenu}
@@ -247,14 +240,7 @@ const ResponsiveAppBar = () => {
                 <Typography onClick={logout} textAlign="center">{LOGOUT}</Typography>
 
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">nkjnkj</Typography>
 
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">nkjnkj</Typography>
-
-              </MenuItem>
 
             </Menu>
           </Box>

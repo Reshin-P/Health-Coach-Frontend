@@ -15,6 +15,8 @@ const MyWorkoutsScreen = () => {
   useEffect(() => {
     dispatch(getSubcribedWorkouts())
   }, [])
+
+
   return (
     <>
       <Header />

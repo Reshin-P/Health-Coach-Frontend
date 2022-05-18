@@ -59,7 +59,7 @@ const EditWorkout = () => {
 
         // formData.append('preview',data.preview)
 
-        const response = await axios.patch(`/workout/${params.id}`, data, config)
+        const response = await axios.put(`/workout/${params.id}`, data, config)
         console.log(response);
         if (response) {
             navigate('/trainer')
@@ -76,7 +76,7 @@ const EditWorkout = () => {
                 <Row className="inputRows mt-5">
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
 
-                        <TextField  label='Enter the name' fullWidth name='workout' {...register("workout", {
+                        <TextField label='Enter the name' fullWidth name='workout' {...register("workout", {
                             required: 'Name Required', pattern: {
                                 value: /^[A-Z 0-9 a-z " "]*$/,
                                 message: "Only Characters"
@@ -85,7 +85,7 @@ const EditWorkout = () => {
                         {errors.workout && <p className='text-danger'>{errors.workout.message}</p>}
                     </Col>
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol">
-                        <TextField  label="Enter the price" type={'number'} fullWidth name='price' {...register('price', {
+                        <TextField label="Enter the price" type={'number'} fullWidth name='price' {...register('price', {
                             required: "Price required", maxLength: {
                                 value: 5,
                                 message: "Price range is high"
@@ -100,7 +100,7 @@ const EditWorkout = () => {
                             disablePortal
                             id="combo-box-demo"
                             options={program}
-                          
+
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField fullWidth {...params} label="program" name="program" {...register('program', { required: "Choose program" })} />}
                         />
@@ -148,7 +148,7 @@ const EditWorkout = () => {
                         {errors.diet1 && <p className='text-danger'>{errors.diet1.message}</p>}
                     </Col>
                     <Col xl={6} lg={6} md={12} sm={12} className="inputcol"  >
-                        <TextField id="outlined-basic"  fullWidth label="Diet paragraph 2" variant="outlined" name="diet2" {...register('diet2', {
+                        <TextField id="outlined-basic" fullWidth label="Diet paragraph 2" variant="outlined" name="diet2" {...register('diet2', {
                             required: "Enter the Diet", minLength: {
                                 value: 300,
                                 message: 'Minimum 300 Words',

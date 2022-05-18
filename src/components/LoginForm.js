@@ -24,12 +24,15 @@ function Login() {
     })
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
+
     const FormSubmit = async (input) => {
         dispatch(loginForm(login))
+
    if(sucess){
   
        navigate('/')
    }
+   
     }
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }

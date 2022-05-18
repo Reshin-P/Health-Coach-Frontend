@@ -14,6 +14,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './PaymentScreen.css'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from '../util/axios'
+import GooglePayButton from '@google-pay/button-react'
 
 
 
@@ -60,12 +61,10 @@ const WorkoutVideo = () => {
   let item = workoutdata.workout
 
 
+  const makepayment = async (paymentdetails) => {
 
-  const makepayment = async token => {
-    console.log("makepayment");
-    console.log(token);
     const body = {
-      token,
+      paymentdetails,
       item
     }
     const config = {
@@ -88,6 +87,33 @@ const WorkoutVideo = () => {
     }
 
   }
+  // const makepayment = async token => {
+  //   console.log("makepayment");
+  //   console.log(token);
+  //   const body = {
+  //     token,
+  //     item
+  //   }
+  //   const config = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Bearer ${userInfo.token}`,
+  //     },
+  //   };
+  //   try {
+  //     const response = await axios.post('/payment', body, config)
+  //     console.log(response);
+  //     if (response.status == 200) {
+  //       console.log(response.data);
+  //       navigate('/')
+
+  //     }
+  //   } catch (error) {
+  //     console.log("error");
+  //     console.log(error);
+  //   }
+
+  // }
 
   return (
     <>
@@ -105,14 +131,49 @@ const WorkoutVideo = () => {
               <h4 className='mt-5'>Trainer : John </h4>
               <div className='price'>
                 <h3 className='mt-5'>Price : {price}</h3>
-                <StripeCheckout
-                  stripeKey={process.env.REACT_APP_STRIPE_PUBLICSH_KEY}
-                  token={makepayment}
-                  name={workout}
-                  amount={price * 100}
-                  currency="inr">
-                  <Button className='Buy-btn' variant="contained">Buy</Button>
-                </StripeCheckout>
+                <GooglePayButton
+                  environment="TEST"
+                  paymentRequest={{
+                    apiVersion: 2,
+                    apiVersionMinor: 0,
+                    allowedPaymentMethods: [
+                      {
+                        type: 'CARD',
+                        parameters: {
+                          allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                          allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                        },
+                        tokenizationSpecification: {
+                          type: 'PAYMENT_GATEWAY',
+                          parameters: {
+                            gateway: 'example',
+                            gatewayMerchantId: 'exampleGatewayMerchantId',
+                          },
+                        },
+                      },
+                    ],
+                    merchantInfo: {
+                      merchantId: '12345678901234567890',
+                      merchantName: 'Demo Merchant',
+                    },
+                    transactionInfo: {
+                      totalPriceStatus: 'FINAL',
+                      totalPriceLabel: 'Total',
+                      totalPrice: price,
+                      currencyCode: 'IND',
+                      countryCode: 'IN',
+                    },
+                  }}
+                  onLoadPaymentData={paymentRequest => {
+                    console.log('load payment data', paymentRequest);
+                    console.log("-------");
+                    makepayment(paymentRequest)
+
+                  }}
+                  onError={(err) => {
+                    console.log(err);
+                  }}
+                />
               </div>
               <div>
 

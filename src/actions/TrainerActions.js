@@ -1,18 +1,26 @@
 import axios from "../util/axios";
 import {
     USER_WORKOUT_REQUEST,
-    USER_WORKOUT_SUCESS,
+    USER_WORKOUT_SUCCESS,
     USER_WORKOUT_FAIL,
     TRAINER_LOGIN_REQUEST,
-    TRAINER_LOGIN_SUCESS,
+    TRAINER_LOGIN_SUCCESS,
     TRAINER_LOGIN_FAIL,
     TRAINER_LOGOUT,
     TRAINER_VERYFY,
-    TRAINER_PROFILE_PHOTO_SUCESS,
+    TRAINER_PROFILE_PHOTO_SUCCESS,
     TRAINER_PROFILE_PHOTO_REQUEST,
     TRAINER_PROFILE_PHOTO_FAIL,
     TRAINER_PROFIE_UPDATE_REQUEST,
-    TRAINER_PROFILE_UPDATE_SUCESS
+    TRAINER_PROFILE_UPDATE_SUCCESS,
+    SUBCRIBED_USERS_REQUEST,
+    SUBCRIBED_USERS_SUCCESS,
+    SUBCRIBED_USERS_FAIL,
+    SINGLE_TRAINER_REQUEST,
+    SINGLE_TRAINER_SUCCESS,
+    SINGLE_TRAINER_FAIL,
+    TRAIENR_WORKOUTS_REQUEST,
+    TRAIENR_WORKOUTS_SUCCESS
 } from '../constances/TrainerReduxConstants.js'
 
 //FOR LOGIN TRAINER
@@ -24,7 +32,7 @@ export const trainerLoginAction = (username, password) => async (dispatch) => {
         const { data } = await axios.post('/trainers/trainerlogin', { username, password })
         localStorage.setItem('trainer', JSON.stringify(data))
         dispatch({
-            type: TRAINER_LOGIN_SUCESS,
+            type: TRAINER_LOGIN_SUCCESS,
             payload: data
         })
         dispatch({
@@ -62,7 +70,7 @@ export const getUserWorkouts = (id) => async (dispatch) => {
         }
         const { data } = await axios.get(`/trainers/userworkouts/${id}`, config)
         dispatch({
-            type: USER_WORKOUT_SUCESS,
+            type: USER_WORKOUT_SUCCESS,
             payload: data
         })
     } catch (error) {
@@ -107,11 +115,11 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
 
         localStorage.setItem('trainer', JSON.stringify(data))
         dispatch({
-            type: TRAINER_PROFILE_PHOTO_SUCESS,
+            type: TRAINER_PROFILE_PHOTO_SUCCESS,
             payload: data
         })
         dispatch({
-            type: TRAINER_LOGIN_SUCESS,
+            type: TRAINER_LOGIN_SUCCESS,
             payload: data
         })
 
@@ -129,8 +137,6 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
 //To update trainer profile
 
 export const updateProfile = (detail) => async (dispatch, getState) => {
-    console.log(detail);
-    console.log("reached update action");
     dispatch({
         type: TRAINER_PROFIE_UPDATE_REQUEST
     })
@@ -147,12 +153,10 @@ export const updateProfile = (detail) => async (dispatch, getState) => {
     };
 
     try {
-        console.log("try");
         const { data } = await axios.put(`/trainers/${trainerInfo._id}`, detail)
-        console.log(data);
         await localStorage.setItem('trainer', JSON.stringify(data))
         dispatch({
-            type: TRAINER_PROFILE_UPDATE_SUCESS,
+            type: TRAINER_PROFILE_UPDATE_SUCCESS,
             payload: data
         })
         dispatch({
@@ -164,4 +168,88 @@ export const updateProfile = (detail) => async (dispatch, getState) => {
     }
 
 
-} 
+}
+
+
+//TO GET SUBCRIBED USERS LIST
+
+export const getSubcribedUsers = (tranerId) => async (dispatch) => {
+    console.log("reached table action");
+    console.log(tranerId);
+    dispatch({
+        type: SUBCRIBED_USERS_REQUEST
+    })
+
+    try {
+
+        const { data } = await axios.get(`/trainers/getUsers/${tranerId}`)
+        console.log("data>>>>>>>>>>>", data);
+        dispatch({
+            type: SUBCRIBED_USERS_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+
+        dispatch({
+            type: SUBCRIBED_USERS_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+
+    }
+
+}
+
+//  SINGLE USER ACTIONS
+
+export const getSingleTrainer = (trainerId) => async (dispatch) => {
+
+
+    dispatch({
+        type: SINGLE_TRAINER_REQUEST
+    })
+    try {
+        const { data } = await axios.get(`/trainers/${trainerId}`)
+        dispatch({
+            type: SINGLE_TRAINER_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: SINGLE_TRAINER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+    }
+}
+
+
+//TRAIENR WORKOUTS
+
+export const getTrainerWorkouts = (trainerID) => async (dispatch) => {
+    dispatch({
+        type: TRAIENR_WORKOUTS_REQUEST
+    })
+    try {
+        console.log("try");
+
+        const { data } = await axios.get(`workout/trainer/${trainerID}`)
+        console.log("data", data);
+        dispatch({
+            type: TRAIENR_WORKOUTS_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error.response.data.message);
+        dispatch({
+            type: SINGLE_TRAINER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
+
+    }
+}

@@ -1,48 +1,93 @@
-import React from 'react'
-import { Container } from 'react-bootstrap'
-import './TrainersDetails.css'
-import { Row, Col } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
-import sample from '../screens/sample.js'
+import Alert from '@mui/material/Alert'
+import React, { useEffect, useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { getSingleTrainer, getTrainerWorkouts } from '../actions/TrainerActions.js'
+import Loader from '../components/Loader'
 import ProgramWiseWorkouts from './ProgramWiseWorkouts'
+import './TrainersDetails.css'
+
 
 
 const TrainersDetails = () => {
 
+  const { singleTrainer: { singleTrainer, loading, error } } = useSelector((state) => {
+    return state
+  })
+  console.log("singleTrainer,", singleTrainer);
+  const { trainerWorkout: { trainerWorkouts, workoutLoading, errors } } = useSelector((state) => {
+    return state
+  })
+  const [streams, setStreams] = useState([])
 
-  
+  const dispatch = useDispatch()
+  const params = useParams()
+  useEffect(() => {
+    dispatch(getSingleTrainer(params.id))
+    dispatch(getTrainerWorkouts(params.id))
+
+
+  }, [])
+  useEffect(() => {
+    if (singleTrainer) {
+      setStreams(singleTrainer.streams)
+    }
+  }, [])
+
+
+
   return (
     <Container className="trainer-container border shadow   vh-100 mt-5">
-      <Row className='trainer_details_header mt-5'>
+
+      {loading ? Loader : <Row className='trainer_details_header mt-5'>
         <Col className='' sm={12} lg={3} xl={3}>
-          <img src='/images/profile/mariya.png' className='Trainer_S_image'></img>
+          <img src={singleTrainer.profilephoto} className='Trainer_S_image'></img>
         </Col >
         <Col className='Traiener_Name  ' sm={12} lg={3} xl={3}>
-          <h1 className='text-danger'>John</h1>
-          <h4 className='text-secondary'>Yoga trainer Gym Trainers</h4>
+          <h1 className='text-danger'>{singleTrainer.name}</h1>
+
+          {/* {singleTrainer?.streams.map((item) =>
+
+            <p className='stream-name'>{item.name} </p>
+
+          )} */}
         </Col>
-      
-      </Row>
+
+      </Row>}
       <Row>
-         <div className='Trainer_Innner_Box'>
-         <div className='Trainer_About'>
-           <h1>About</h1>
-           <p>
-           Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-           Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-           </p>
-         
-           {sample.map((smp)=> 
-   
-   <ProgramWiseWorkouts  data={smp}/>)
-   }
-         </div>
- 
+        <div className='Trainer_Innner_Box'>
+          <div className='Trainer_About'>
+            <h1>About</h1>
+            <p>
 
-       </div>
+              {singleTrainer.about}
+            </p>
+            <h2 className='Certifications'>Certifications</h2>
+
+            {/* {singleTrainer?.certifications.map((item) =>
+
+              <p className='stream-name'>{item.name} </p>
+
+            )} */}
+            {workoutLoading ? Loader : <div>
+              {trainerWorkouts.map((smp) =>
+
+                <ProgramWiseWorkouts data={smp} />)
+              }
+            </div>}
+            {errors && <Alert variant="outlined" severity="info">
+              This is an info alert — check it out!
+            </Alert>}
+
+
+          </div>
+
+
+        </div>
       </Row>
 
-     
+
 
     </Container>
   )

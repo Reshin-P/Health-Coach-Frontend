@@ -36,9 +36,9 @@ const TrainerSignupForm = () => {
 
     const onSubmit = async (data) => {
 
-        const { name, username, email, phone, password } = data;
+        const { name, username, email, phone, password, about } = data;
         try {
-            const response = await axios.post('trainers/trainers', { name, username, email, phone, password, certifications, streams })
+            const response = await axios.post('trainers/trainers', { name, username, email, phone, password, certifications, streams, about })
             if (response.data) {
                 navigate('/trainerLogin')
             }
@@ -123,7 +123,18 @@ const TrainerSignupForm = () => {
                             })} />
                             {errors.phone && <p className='text-danger'>{errors.phone.message}</p>}      </Grid>
                         <Grid item xs={12} lg={6} xl={6} md={6} sm={6}>
-                            <TextField className='about' label='Enter the About' name='about' sx={{ width: '90%' }} {...register('about', { require: "About Required" }
+                            <TextField className='about' label='Enter the About' name='about' sx={{ width: '90%' }} {...register('about', {
+                                require: "About Required",
+                                minLength: {
+                                    value: 70,
+                                    message: "minum words 70"
+                                },
+                                maxLength: {
+                                    value: 400,
+                                    message: "maximum words 75"
+                                }
+                            },
+
                             )} />
                             {errors.about && <p className='text-danger'>{errors.about.message}</p>}
                         </Grid>

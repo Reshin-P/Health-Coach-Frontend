@@ -13,7 +13,7 @@ import { getAllWorkouts } from '../../actions/workoutActions.js'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from '../../util/axios';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 
@@ -49,19 +49,19 @@ export default function ManageWorkoutTable() {
     console.log(allWorkout);
     console.log("data");
 
-   
-    const deleteHandler = async(id) => {
+
+    const deleteHandler = async (id) => {
         console.log(id);
-        const response=await axios.delete(`/workout/${id}`)
-    }    
+        const response = await axios.delete(`/workout/${id}`)
+    }
     useEffect(() => {
-       
+
         console.log("ddddd");
         dispatch(getAllWorkouts())
     }, [])
 
 
-    
+
     return (
         <TableContainer className='mt-5' component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -85,11 +85,11 @@ export default function ManageWorkoutTable() {
                             <StyledTableCell align="right">{item.trainer}</StyledTableCell>
                             <StyledTableCell align="right">
                                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                                   <Link to={`/editWorkout/${item._id}`}> <button >
+                                    <Link to={`/editWorkout/${item._id}`}> <button >
                                         <EditIcon />
                                     </button>
                                     </Link>
-                                    <button onClick={()=>deleteHandler(item._id)}>
+                                    <button onClick={() => deleteHandler(item._id)}>
                                         <DeleteIcon />
                                     </button>
                                 </div>

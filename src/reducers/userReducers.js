@@ -19,12 +19,15 @@ import {
     USER_PROFILE_PHOTO_FAIL
 } from '../constances/UserConstants'
 
+
+
 let data = localStorage.getItem('userInfo')
 data = JSON.parse(data)
 if (data) {
     data = data
 
 } else {
+
     data = null
 }
 
@@ -36,6 +39,8 @@ export const veryuserReducer = (state = { userInfo: data }, action) => {
     switch (action.type) {
         case USER_VERYFY:
             return { ...state, userInfo: action.payload }
+        case USER_LOGOUT:
+            return { logouted: true }
         default: return state
 
     }
@@ -103,8 +108,7 @@ export const subcribeWorkouts = (state = { subcribedworkouts: [] }, { type, payl
             return { ...state, loading: false, subcribedworkouts: payload }
         case USER_SUBCRIBED_WORKOUT_FAIL:
             return { ...state, loading: false, error: payload }
-        case USER_LOGOUT:
-            return {}
+
         default:
             return state
     }
@@ -121,8 +125,7 @@ export const uploadProfilePhoto = (state = { userprofilePhoto: {} }, { type, pay
             return { ...state, loadingphoto: false, photosucess: true, photo: payload }
         case USER_PROFILE_PHOTO_FAIL:
             return { ...state, loadingphoto: false, error: payload }
-        case USER_LOGOUT:
-            return {}
+
         default:
             return state
     }

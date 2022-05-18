@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import './CategorywiseProgram.css'
+import './ManageSingleWorkout.css'
 import { Button } from '@mui/material'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
@@ -9,22 +9,10 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Container } from 'react-bootstrap'
 import GooglePayButton from '@google-pay/button-react'
-import { blockUnblockWorkout } from '../actions/AdminActions'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllWorkouts } from '../actions/workoutActions.js'
 
 
 
-const ProgramWiseWorkouts = (props) => {
-
-    const { blockWorkout: { blockworkout, loading, error } } = useSelector((state) => {
-        return state
-    })
-    console.log(blockworkout);
-    useEffect(() => {
-
-    }, [blockworkout])
-    const dispatch = useDispatch()
+const ManageSingleWorkout = (props) => {
     const style = {
         position: 'absolute',
         top: '50%',
@@ -38,27 +26,13 @@ const ProgramWiseWorkouts = (props) => {
         p: 4,
     };
     const makepayment = () => {
+
     }
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    let { _id, workout, price, description, trainer, video, preview, isBlocked } = props.data
-    const blochHandler = async () => {
-        console.log("block handler");
-        dispatch(blockUnblockWorkout(_id, "block"))
-        dispatch(getAllWorkouts())
-
-    }
-
-
-    const unblockhHandler = async () => {
-        console.log("unblock handler");
-
-        dispatch(blockUnblockWorkout(_id, "unblock"))
-        dispatch(getAllWorkouts())
-
-    }
+    let { _id, workout, price, description, trainer, video, preview } = props.data
     return (
         <>
             <Row key={_id} className='SingleProgram mt-5 border  shadow'>
@@ -77,13 +51,8 @@ const ProgramWiseWorkouts = (props) => {
                 </Col>
                 <Col md={2} sm={12} className='program-Right'>
                     <div className='ml-4'>
-                        <Button onClick={handleOpen} variant="contained">View</Button>
-
                         <h1>₹{price}</h1>
-                        {isBlocked ? <Button color='warning' onClick={unblockhHandler} variant="contained">unBlock</Button>
-                            : <Button color='error' onClick={blochHandler} variant="contained">Block</Button>}
-
-
+                        <Button onClick={handleOpen} variant="contained">Buy</Button>
                     </div>
                 </Col>
             </Row>
@@ -183,4 +152,4 @@ const ProgramWiseWorkouts = (props) => {
     )
 }
 
-export default ProgramWiseWorkouts
+export default ManageSingleWorkout

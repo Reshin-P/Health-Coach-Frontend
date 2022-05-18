@@ -27,7 +27,9 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await axios.get('/trainers/trainers')
+      console.log("==");
+      const { data } = await axios.get('/trainers')
+      console.log(data);
       setTrainers(data)
     }
     fetch()

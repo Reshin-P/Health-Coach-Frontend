@@ -84,7 +84,7 @@ const SidePanel = () => {
                         </div>
 
                         {bannershow && <div className='hide'>
-                            <h5>Add Banner</h5>
+                            <LinkContainer to={'/addprograms'}><h5>Add Programs</h5></LinkContainer>
                             <h5>Manage Banner</h5>
 
                         </div>}
@@ -125,8 +125,10 @@ const SidePanel = () => {
                         </div>
 
                         {programrshow && <div className='hide'>
-                            <h5>Add Banner</h5>
-                            <h5>Manage Banner</h5>
+                            <LinkContainer to={'/addprogram'}><h5>Add Programs</h5></LinkContainer>
+                            <LinkContainer to={'/manageprograms'}><h5>Manage Programs</h5></LinkContainer>
+
+                            <h5></h5>
 
                         </div>}
 

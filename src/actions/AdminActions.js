@@ -1,4 +1,5 @@
 import axios from '../util/axios'
+import { listprograms } from '../actions/programActions';
 import {
     ADMIN_LOGIN_REQUEST,
     ADMIN_LOGIN_SUCCESS,
@@ -26,20 +27,32 @@ import {
     TRAINER_SIGNUP_ACCEPT_FAIL,
     TRAINER_ACCEPT_REQUEST,
     TRAINER_ACCEPT_SUCCESS,
-    TRAINER_ACCEPT_FAIL
+    TRAINER_ACCEPT_FAIL,
+    ADD_PROGRAM_REQUEST,
+    ADMIN_VERYFY,
+    ADMIN_LOGOUT,
+    ADD_PROGRAM_SUCESS,
+    DELETE_PROGRAM_REQUEST,
+    DELETE_PROGRAM_SUCCESS,
+    DELETE_PROGRAM_FAIL
 }
     from '../constances/AdminConstants'
+import { PROGRAM_SUCESS } from '../constances/programConstants'
 
 // Admin Login Form
 export const AdminLoginForm = (details) => async (dispatch) => {
-    console.log("reached actions");
     dispatch({
         type: ADMIN_LOGIN_REQUEST
     })
     try {
         const { data } = await axios.post('/admin', details)
+        localStorage.setItem("admin", JSON.stringify(data))
         dispatch({
             type: ADMIN_LOGIN_SUCCESS,
+            payload: data
+        })
+        dispatch({
+            type: ADMIN_VERYFY,
             payload: data
         })
     } catch (error) {
@@ -82,9 +95,7 @@ export const getAllWorkoutsAdmin = () => async (dispatch) => {
 
 
 export const blockUnblockWorkout = (id, value) => async (dispatch) => {
-    console.log(id, value);
     const details = { id, value }
-    console.log(details);
     dispatch({
         type: WORKOUT_BLOCK_UNBLOCK_REQUEST
     })
@@ -112,7 +123,6 @@ export const getAllTrainers = () => async (dispatch) => {
     })
     try {
         const { data } = await axios.get('/trainers')
-        console.log(data);
         dispatch({
             type: ALL_TRAINERS_SUCCESS,
             payload: data
@@ -130,15 +140,22 @@ export const getAllTrainers = () => async (dispatch) => {
 
 //To Block Unblock Trainers
 
-export const blockUnblockTrainers = (id, value) => async (dispatch) => {
-    console.log(id, value);
+export const blockUnblockTrainers = (id, value) => async (dispatch, getState) => {
+
+    const { adminVerify: { adminInfo } } = getState();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
     const details = { value }
-    console.log(details);
+
     dispatch({
         type: TRAINER_BLOCK_UNBLOCK_REQUEST
     })
     try {
-        const { data } = await axios.post(`/admin/trainer/${id}`, details)
+        const { data } = await axios.post(`/admin/trainer/${id}`, details, config)
         dispatch({
             type: TRAINER_BLOCK_UNBLOCK_SUCCESS,
             payload: data
@@ -155,13 +172,19 @@ export const blockUnblockTrainers = (id, value) => async (dispatch) => {
 
 // To Get All Users
 
-export const getAllUsers = () => async (dispatch) => {
+export const getAllUsers = () => async (dispatch, getState) => {
+    const { adminVerify: { adminInfo } } = getState();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
     dispatch({
         type: GET_ALL_USER_REQUEST
     })
     try {
-        const { data } = await axios.get('/user')
-        console.log(data);
+        const { data } = await axios.get('/user', config)
         dispatch({
             type: GET_ALL_USER_SUCCESS,
             payload: data
@@ -180,19 +203,26 @@ export const getAllUsers = () => async (dispatch) => {
 
 //To Block Unblock Users
 
-export const blockUnblockUsers = (id, value) => async (dispatch) => {
-    console.log(id, value);
+export const blockUnblockUsers = (id, value) => async (dispatch, getState) => {
+
+    const { adminVerify: { adminInfo } } = getState();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
     const details = { value }
-    console.log(details);
     dispatch({
         type: USER_BLOCK_REQUEST
     })
     try {
-        const { data } = await axios.post(`/admin/user/${id}`, details)
+        const { data } = await axios.post(`/admin/user/${id}`, details, config)
         dispatch({
             type: USER_BLOCK_SUCCESS,
             payload: data
         })
+
     } catch (error) {
         dispatch({
             type: USER_BLOCK_FAIL,
@@ -205,12 +235,20 @@ export const blockUnblockUsers = (id, value) => async (dispatch) => {
 
 //To Get All New Trainers
 
-export const getAllNewTrainer = () => async (dispatch) => {
+export const getAllNewTrainer = () => async (dispatch, getState) => {
+
+    const { adminVerify: { adminInfo } } = getState();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
     dispatch({
         type: TRAINER_SIGNUP_ACCEPT_REQUEST
     })
     try {
-        const { data } = await axios.get('/admin/trainers')
+        const { data } = await axios.get('/admin/trainers', config)
         dispatch({
             type: TRAINER_SIGNUP_ACCEPT_SUCCESS,
             payload: data
@@ -225,14 +263,21 @@ export const getAllNewTrainer = () => async (dispatch) => {
     }
 }
 
-export const acceptTrainers = (id) => async (dispatch) => {
-    console.log("id", id);
+//TO ACCEPT TRAINER SIGNUP REQUEST
+
+export const acceptTrainers = (id) => async (dispatch, getState) => {
+    const { adminVerify: { adminInfo } } = getState();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
     dispatch({
         type: TRAINER_ACCEPT_REQUEST
     })
     try {
-        const { data } = await axios.patch(`/admin/accept/${id}`)
-        console.log("jjjkk>>>>>>>", data);
+        const { data } = await axios.patch(`/admin/accept/${id}`, { id: id }, config)
         dispatch({
             type: TRAINER_ACCEPT_SUCCESS,
             payload: data
@@ -240,6 +285,93 @@ export const acceptTrainers = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: TRAINER_ACCEPT_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+
+//TO ADD NEW PROGRAMS
+
+export const addProgram = (details) => async (dispatch) => {
+    dispatch({
+        type: ADD_PROGRAM_REQUEST
+    })
+
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const { data } = await axios.post('/program', details, config)
+        dispatch({
+            type: ADD_PROGRAM_SUCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: TRAINER_ACCEPT_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+//To Logout Admin
+
+export const logoutAdmin = () => async (dispatch) => {
+    localStorage.removeItem('admin')
+    dispatch({
+        type: ADMIN_LOGOUT
+    })
+    dispatch({
+        type: ADMIN_VERYFY,
+        payload: null
+    })
+}
+
+//TO DELETE PROGRAMS
+
+export const deleteProgram = (id) => async (dispatch, getState) => {
+
+    const { adminVerify: { adminInfo }, programList: { programs } } = getState();
+    dispatch({
+        type: DELETE_PROGRAM_REQUEST
+    })
+
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
+    try {
+        const { data } = await axios.delete(`/program/${id}`, config)
+        dispatch({
+            type: DELETE_PROGRAM_SUCCESS,
+            payload: data
+        })
+        console.log(id);
+        dispatch({
+            type: PROGRAM_SUCESS,
+            payload: programs.filter(program => {
+                if (program._id !== id) {
+                    return program
+                }
+
+
+            })
+        });
+    } catch (error) {
+        dispatch({
+            type: DELETE_PROGRAM_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

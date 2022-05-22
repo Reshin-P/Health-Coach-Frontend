@@ -25,7 +25,15 @@ import {
     TRAINER_SIGNUP_ACCEPT_FAIL,
     TRAINER_ACCEPT_REQUEST,
     TRAINER_ACCEPT_SUCCESS,
-    TRAINER_ACCEPT_FAIL
+    TRAINER_ACCEPT_FAIL,
+    ADD_PROGRAM_REQUEST,
+    ADD_PROGRAM_SUCESS,
+    ADD_PROGRAM_FAIL,
+    ADMIN_VERYFY,
+    ADMIN_LOGOUT,
+    DELETE_PROGRAM_REQUEST,
+    DELETE_PROGRAM_SUCCESS,
+    DELETE_PROGRAM_FAIL
 } from '../constances/AdminConstants'
 
 
@@ -150,7 +158,7 @@ export const getNewTrainerReducer = (state = { newTrainers: [] }, { type, payloa
 
 //To ACCEPT TRAINER BTN
 
-export const acceptRequest = (state = { acceptTrainer: "" }, { type, payload }) => {
+export const acceptRequestReducer = (state = { acceptTrainer: "" }, { type, payload }) => {
     switch (type) {
         case TRAINER_ACCEPT_REQUEST:
             return { ...state, acceptLoading: true, sucess: false }
@@ -158,6 +166,56 @@ export const acceptRequest = (state = { acceptTrainer: "" }, { type, payload }) 
             return { ...state, acceptLoading: false, sucess: true, acceptTrainer: payload }
         case TRAINER_ACCEPT_FAIL:
             return { ...state, acceptLoading: false, errors: payload }
+        default:
+            return state
+    }
+}
+
+//TO ADD NEW PROGRAMS
+
+export const addProgramReducer = (state = { program: {} }, { type, payload }) => {
+    switch (type) {
+        case ADD_PROGRAM_REQUEST:
+            return { ...state, loading: true }
+        case ADD_PROGRAM_SUCESS:
+            return { ...state, loading: false, success: true, program: payload }
+        case ADD_PROGRAM_FAIL:
+            return { ...state, loading: false, error: payload }
+        default:
+            return state
+    }
+}
+
+
+//TO VERIFY ADMIN
+
+let admin = localStorage.getItem('admin')
+admin = JSON.parse(admin)
+if (!admin) {
+    admin = null
+}
+
+export const adminVerify = (state = { adminInfo: admin }, { type, payload }) => {
+    switch (type) {
+        case ADMIN_VERYFY:
+            return { ...state, adminInfo: payload }
+        case ADMIN_LOGOUT:
+            return { ...state, logoutSucess: true }
+        default:
+            return state
+    }
+}
+
+//TO DELETE PROGRAM
+
+export const deleteProgramReducer = (state = { deletedProgram: '' }, { type, payload }) => {
+    switch (type) {
+        case DELETE_PROGRAM_REQUEST:
+            return { ...state, loading: true }
+        case DELETE_PROGRAM_SUCCESS:
+            return { ...state, loading: false, deletedProgram: payload }
+        case DELETE_PROGRAM_FAIL:
+            return { ...state, loading: false, errors: payload }
         default:
             return state
     }

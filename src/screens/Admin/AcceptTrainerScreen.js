@@ -16,11 +16,9 @@ const AcceptTrainerScreen = () => {
     const { singleTrainer: { singleTrainer, loading, error } } = useSelector((state) => {
         return state
     })
-    console.log(">>>>>>>>", singleTrainer);
     const { acceptTrainer: { acceptTrainer, sucess, acceptLoading, errors } } = useSelector((state) => {
         return state
     })
-    console.log("acceptTrainer>>>", acceptTrainer);
 
     const [streams, setStreams] = useState([])
 

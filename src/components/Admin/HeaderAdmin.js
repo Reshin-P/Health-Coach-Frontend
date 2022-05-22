@@ -15,12 +15,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from 'react-redux'
 import { ADDWORKOUTS, MANAGEWORKOUTS } from '../../constances/CommonConstants';
 import { BLOG, LOGOUT, MY_PROFILE, MY_WORKOUTS, WORKOUTS } from '../../constances/HomePageConstants';
 import { getAllNewTrainer } from '../../actions/AdminActions.js'
+import { logoutAdmin } from '../../actions/AdminActions.js'
 import './HeaderAdmin.css';
 
 const style = {
@@ -37,6 +38,19 @@ const style = {
 };
 
 const HeaderAdmin = () => {
+    const navigate = useNavigate()
+    const { adminVerify: { adminInfo, logoutSucess } } = useSelector((state) => {
+        return state
+    })
+    useEffect(() => {
+        if (!adminInfo) {
+            navigate('/adminlogin')
+        }
+        if (logoutSucess) {
+            navigate('/adminlogin')
+        }
+    }, [logoutSucess])
+
 
     useEffect(() => {
         dispatch(getAllNewTrainer())
@@ -57,7 +71,7 @@ const HeaderAdmin = () => {
 
 
     const logout = () => {
-
+        dispatch(logoutAdmin())
     }
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -240,7 +254,9 @@ const HeaderAdmin = () => {
 
                         </MenuItem>
                         <MenuItem onClick={handleCloseUserMenu}>
-                            <Typography onClick={logout} textAlign="center">{LOGOUT}</Typography>
+                            <Typography onClick={() => {
+                                logout()
+                            }} textAlign="center">{LOGOUT}</Typography>
 
                         </MenuItem>
 

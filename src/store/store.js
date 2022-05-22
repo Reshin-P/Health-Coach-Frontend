@@ -2,11 +2,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { programReducer } from '../reducers/programReducer'
-import { workoutReducer, allWorkoutsReducer } from '../reducers/workoutReducers'
+import { workoutReducer, allWorkoutsReducer, TrainerAllWorkouts } from '../reducers/workoutReducers'
 import { UserWorkouts } from '../reducers/TrainersReducers'
 import { veryuserReducer, subcribeWorkouts, userprofileEditReducer, LoginCheckReducer, userWeightUpdate, uploadProfilePhoto } from '../reducers/userReducers'
 import { verytrainerReducer, trainerLoginReducer, uploadTrainerProfilePhoto, updateProfile, getSubcribedUsers, SingleTrainer, trainerWorkoutReducer } from '../reducers/TrainersReducers'
-import { AdminLoginReducer, AdminAllWorkoutsReducers, BlockWorkoutReducer, getAlltrainers, BlockUnblockTrainerReducer, allUserReducers, BlockUnblockUserReducer, getNewTrainerReducer, acceptRequest } from '../reducers/AdminReducers'
+import {
+    AdminLoginReducer,
+    AdminAllWorkoutsReducers, BlockWorkoutReducer, getAlltrainers, BlockUnblockTrainerReducer, allUserReducers,
+    BlockUnblockUserReducer, getNewTrainerReducer, acceptRequestReducer, addProgramReducer, adminVerify, deleteProgramReducer
+} from '../reducers/AdminReducers'
 
 const reducer = combineReducers({
     programList: programReducer,
@@ -34,7 +38,11 @@ const reducer = combineReducers({
     allusers: allUserReducers,
     blockUser: BlockUnblockUserReducer,
     newTrainer: getNewTrainerReducer,
-    acceptTrainer: acceptRequest
+    acceptTrainer: acceptRequestReducer,
+    addProgram: addProgramReducer,
+    adminVerify: adminVerify,
+    deleteProgram: deleteProgramReducer,
+    allTrainerWorkouts: TrainerAllWorkouts
 
 })
 

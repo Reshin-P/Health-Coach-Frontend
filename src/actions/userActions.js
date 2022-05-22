@@ -83,7 +83,7 @@ export const userUpdate = (detail) => async (dispatch, getState) => {
     })
     try {
         const {
-            user: { userInfo },
+            user: { userInfo }
         } = getState();
 
         const config = {
@@ -113,20 +113,24 @@ export const userUpdate = (detail) => async (dispatch, getState) => {
 
 //To Update User Weight
 
-export const updateWeight = (weight, id) => async (dispatch) => {
+export const updateWeight = (weight, id) => async (dispatch, getState) => {
 
-    let user = localStorage.getItem('userInfo')
-    user = JSON.parse(user)
+    const {
+        user: { userInfo },
+    } = getState();
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
     dispatch({
         type: USER_WEIGHT_UPDATE_REQUEST
     })
     try {
-        const config = {
-            headers: {
-                Authorization: user.token
-            }
-        }
-        const { data } = await axios.put(`/user/weight/${user._id}`, { weight }, config)
+
+        const { data } = await axios.put(`/user/weight/${userInfo._id}`, { weight }, config)
         dispatch({
             type: USER_WEIGHT_UPDATE_SUCESS,
             payload: data
@@ -182,7 +186,6 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
                 ? error.data.message
                 : error.message
         })
-
     }
 }
 
@@ -205,7 +208,7 @@ export const uploadProfilePhoto = (formData, userInfo) => async (dispatch) => {
             }
         }
         const { data } = await axios.patch('/user/profilephoto', formData, config)
-        const user = await localStorage.setItem('userInfo', JSON.stringify(data))
+        localStorage.setItem('userInfo', JSON.stringify(data))
         dispatch({
             type: USER_PROFILE_PHOTO_SUCESS,
             payload: data

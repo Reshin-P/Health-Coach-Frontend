@@ -1,50 +1,46 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import './Header.css'
-import { Link } from 'react-router-dom';
-import { FREE_WORKOUTS, PROGRAMS, WORKOUTS, ABOUT, MY_PROFILE, MY_WORKOUTS, LOGOUT, TRAINER } from '../constances/HomePageConstants'
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Logout } from '../actions/userActions'
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Logout } from '../actions/userActions';
+import { FREE_WORKOUTS, LOGOUT, MY_PROFILE, MY_WORKOUTS, PROGRAMS, TRAINER, WORKOUTS } from '../constances/HomePageConstants';
+import './Header.css';
 
 
 const ResponsiveAppBar = () => {
   const dispatch = useDispatch()
-  const [user, setUser] = useState('')
   const navigate = useNavigate()
   const [log, setLog] = useState(false)
+  const { user: { userInfo } } = useSelector(state => state)
 
-  const { user: { userInfo, logouted } } = useSelector((state) => {
-    return state
-  })
+
 
   useEffect(() => {
 
-    const userInfo = localStorage.getItem('userInfo')
-    if (userInfo) {
-      let data = JSON.parse(userInfo)
-      setUser(data)
-    }
+    console.log("------------//\\\\------->>>>");
+
 
   }, [])
+  console.log(userInfo);
+
+
 
   //logout fuction
   const logout = () => {
     dispatch(Logout())
-    setTimeout(() => {
-      navigate('/login')
-    }, 0);
+
+    navigate('/login')
+
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -133,7 +129,7 @@ const ResponsiveAppBar = () => {
 
 
 
-              {!user && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
+              {!userInfo && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
 
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
@@ -184,7 +180,7 @@ const ResponsiveAppBar = () => {
           >
             {ABOUT}
           </Button> */}
-          {!user && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
+          {!userInfo && <Link to={'/trainerlogin'} style={{ textDecorationLine: "none" }}><Button
 
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'black', display: 'block' }}
@@ -194,18 +190,18 @@ const ResponsiveAppBar = () => {
 
 
         </Box>
-        {user && <Typography className='username'>{user.name}</Typography>}
-        {!user && <Link to={'/login'} style={{ textDecorationLine: 'none' }} >  <Button sx={{ marginRight: "9px" }} variant="outlined" >
+        {userInfo && <Typography className='username'>{userInfo.name}</Typography>}
+        {!userInfo && <Link to={'/login'} style={{ textDecorationLine: 'none' }} >  <Button sx={{ marginRight: "9px" }} variant="outlined" >
           Login
         </Button></Link>}
-        {!user && <Link to={'/signup'} style={{ textDecorationLine: 'none' }}><Button sx={{ marginRight: "9px" }} variant="outlined" >
+        {!userInfo && <Link to={'/signup'} style={{ textDecorationLine: 'none' }}><Button sx={{ marginRight: "9px" }} variant="outlined" >
           Signup
         </Button></Link>}
         {/* {user && <Button onClick={logout} sx={{ marginRight: "9px" }} variant="outlined" >
           Logout
         </Button>} */}
 
-        {user &&
+        {userInfo &&
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

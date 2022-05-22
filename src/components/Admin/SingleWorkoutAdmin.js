@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import './CategorywiseProgram.css'
+import GooglePayButton from '@google-pay/button-react'
 import { Button } from '@mui/material'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import React, { useEffect } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import ReactPlayer from 'react-player'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
-import ReactPlayer from 'react-player'
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import { Container } from 'react-bootstrap'
-import GooglePayButton from '@google-pay/button-react'
-import { blockUnblockWorkout } from '../actions/AdminActions'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllWorkouts } from '../actions/workoutActions.js'
+import { blockUnblockWorkout } from '../../actions/AdminActions'
+import { getAllWorkouts } from '../../actions/workoutActions.js'
+import './SingleWorkoutAdmin.css'
 
 
 
-const ProgramWiseWorkouts = (props) => {
+const SingleWorkoutAdmin = (props) => {
 
     const { blockWorkout: { blockworkout, loading, error } } = useSelector((state) => {
         return state
@@ -79,8 +78,8 @@ const ProgramWiseWorkouts = (props) => {
                         <Button onClick={handleOpen} variant="contained">View</Button>
 
                         <h1>₹{price}</h1>
-                        {/* {isBlocked ? <Button color='warning' onClick={unblockhHandler} variant="contained">unBlock</Button>
-                            : <Button color='error' onClick={blochHandler} variant="contained">Block</Button>} */}
+                        {isBlocked ? <Button color='warning' onClick={unblockhHandler} variant="contained">unBlock</Button>
+                            : <Button color='error' onClick={blochHandler} variant="contained">Block</Button>}
 
 
                     </div>
@@ -182,4 +181,4 @@ const ProgramWiseWorkouts = (props) => {
     )
 }
 
-export default ProgramWiseWorkouts
+export default SingleWorkoutAdmin

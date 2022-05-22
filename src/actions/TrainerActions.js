@@ -97,10 +97,19 @@ export const LogoutTrainer = () => async (dispatch) => {
 
 //To upoad profile photo
 
-export const uploadProfilePhoto = (formData) => async (dispatch) => {
+export const uploadProfilePhoto = (formData) => async (dispatch, getState) => {
+    console.log(">>>>>>>");
+    const {
+        trainerInfo: { trainerInfo }
+    } = getState();
 
-    let trainerInfo = await localStorage.getItem('trainer')
-    trainerInfo = JSON.parse(trainerInfo)
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${trainerInfo.token}`,
+        },
+    };
     dispatch({
         type: TRAINER_PROFILE_PHOTO_REQUEST
     })
@@ -122,6 +131,10 @@ export const uploadProfilePhoto = (formData) => async (dispatch) => {
             type: TRAINER_LOGIN_SUCCESS,
             payload: data
         })
+        dispatch({
+            type: TRAINER_VERYFY,
+            payload: data
+        })
 
     } catch (error) {
         dispatch({
@@ -141,7 +154,7 @@ export const updateProfile = (detail) => async (dispatch, getState) => {
         type: TRAINER_PROFIE_UPDATE_REQUEST
     })
     const {
-        trainerInfo: { trainerInfo },
+        trainerInfo: { trainerInfo }
     } = getState();
 
 
@@ -153,7 +166,7 @@ export const updateProfile = (detail) => async (dispatch, getState) => {
     };
 
     try {
-        const { data } = await axios.put(`/trainers/${trainerInfo._id}`, detail)
+        const { data } = await axios.put(`/trainers/${trainerInfo._id}`, detail, config)
         await localStorage.setItem('trainer', JSON.stringify(data))
         dispatch({
             type: TRAINER_PROFILE_UPDATE_SUCCESS,
@@ -173,16 +186,25 @@ export const updateProfile = (detail) => async (dispatch, getState) => {
 
 //TO GET SUBCRIBED USERS LIST
 
-export const getSubcribedUsers = (tranerId) => async (dispatch) => {
-    console.log("reached table action");
-    console.log(tranerId);
+export const getSubcribedUsers = (tranerId) => async (dispatch, getState) => {
+
     dispatch({
         type: SUBCRIBED_USERS_REQUEST
     })
+    const {
+        trainerInfo: { trainerInfo }
+    } = getState();
 
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${trainerInfo.token}`,
+        },
+    };
     try {
 
-        const { data } = await axios.get(`/trainers/getUsers/${tranerId}`)
+        const { data } = await axios.get(`/trainers/getusers/${tranerId}`, config)
         console.log("data>>>>>>>>>>>", data);
         dispatch({
             type: SUBCRIBED_USERS_SUCCESS,

@@ -1,11 +1,10 @@
-import axios from '../util/axios'
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import ProgramWiseWorkouts from '../components/ProgramWiseWorkouts'
-import Header from '../components/Header'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllWorkouts } from '../actions/workoutActions.js'
-
+import HeaderAdmin from '../components/Admin/HeaderAdmin'
+import ProgramWiseWorkouts from '../components/ProgramWiseWorkouts'
+import SingleWorkoutAdmin from '../components/Admin/SingleWorkoutAdmin'
 const AllWorkoutScreen = () => {
     const dispatch = useDispatch()
     const { getAllWorkouts: { allWorkouts } } = useSelector((state) => {
@@ -13,11 +12,7 @@ const AllWorkoutScreen = () => {
     })
     console.log('allWorkouts', allWorkouts);
     const [workout, setWorkout] = useState([])
-    // const getAllWokouts = async () => {
-    //     const { data } = await axios.get('/workout')
-    //     console.log("daataat", data);
-    //     setWorkout(data)
-    // }
+
     useEffect(() => {
         dispatch(getAllWorkouts())
         // getAllWokouts()
@@ -27,10 +22,10 @@ const AllWorkoutScreen = () => {
     }, [allWorkouts])
     return (
         <>
-            <Header />
+            <HeaderAdmin />
             <Container>
                 {allWorkouts.map((smp) =>
-                    <ProgramWiseWorkouts data={smp} />)
+                    <SingleWorkoutAdmin data={smp} />)
                 }
             </Container >
         </>

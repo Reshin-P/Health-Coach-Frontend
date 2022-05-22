@@ -10,10 +10,12 @@ import MyProfileScreen from './screens/MyProfileScreen';
 import AllWorkoutScreen from "./screens/AllWorkoutScreen";
 import MyWorkoutsScreen from "./screens/MyWorkoutsScreen";
 import AllprogramsScreen from "./screens/AllprogramsScreen";
+import ManagePrograms from "./screens/Admin/ManagePrograms";
 import ProgramWiseScreen from "./screens/ProgramWiseScreen";
 import ViewUserScreen from "./screens/Trainer/ViewUserScreen";
 import AdminLoginScreen from "./screens/Admin/AdminLoginScreen";
 import ManageUserScreen from "./screens/Admin/ManageUserScreen";
+import AddProgramScreen from "./screens/Admin/AddProgramScreen";
 import SubcribedWorkouts from "./screens/SubcribedWorkoutsScreen";
 import WorkoutDetailsScreen from "./screens/WorkoutDetailsScreen";
 import AddWorkoutScreen from "./screens/Trainer/AddWorkoutScreen";
@@ -32,7 +34,6 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<HomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<SignupScreen />} />
@@ -42,15 +43,17 @@ function App() {
         <Route path="/admin" element={<AdminHomepageScreen />} />
         <Route path="/trainers/:id" element={<TrainerScreen />} />
         <Route path="/programs" element={<AllprogramsScreen />} />
+        <Route path="/addprogram" element={<AddProgramScreen />} />
         <Route path="/manageuser" element={<ManageUserScreen />} />
         <Route path="/viewuser/:id" element={<ViewUserScreen />} />
         <Route path="/myworkouts" element={<MyWorkoutsScreen />} />
         <Route path="/adminlogin" element={<AdminLoginScreen />} />
-        <Route path="/trainer/:id" element={<AcceptTrainerScreen />} />
         <Route path="/manageworkouts" element={<ManageWorkout />} />
+        <Route path="/manageprograms" element={<ManagePrograms />} />
         <Route path="/trainer" element={<TrainerHomepageScreen />} />
         <Route path="/programs/:id" element={<ProgramWiseScreen />} />
         <Route path="/trainerlogin" element={<TrainerLoginScreen />} />
+        <Route path="/trainer/:id" element={<AcceptTrainerScreen />} />
         <Route path="/manageworkout" element={<AdminMangeWorkouts />} />
         <Route path="/workoutsub/:id" element={<SubcribedWorkouts />} />
         <Route path="/workout/:id" element={<WorkoutDetailsScreen />} />

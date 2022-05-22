@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, Paper, Avatar } from "@mui/material"
 import { Link, useNavigate } from 'react-router-dom'
@@ -26,11 +26,23 @@ function AdminLogin() {
         console.log("dfddfd");
         console.log(input);
         dispatch(AdminLoginForm(input))
-        navigate('/adminhome')
+        navigate('/admin')
     }
+
+    const { adminVerify: { adminInfo } } = useSelector((state) => {
+        return state
+    })
+    useEffect(() => {
+        if (adminInfo) {
+            navigate('/admin')
+        }
+        if (sucess) {
+            navigate('/admin')
+        }
+    }, [adminInfo])
     const avatarStyle = { backgroundColor: 'green' }
     const btnStyle = { margin: '25px 0' }
-    const paperStyle = { padding: 20, height: '40vh', width: 380, margin: '20px auto' }
+    const paperStyle = { padding: 20, height: 'auto', width: 380, margin: '20px auto' }
     return (
         <div style={{ marginTop: '200px' }} >
             <Grid >

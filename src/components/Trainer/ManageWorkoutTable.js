@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllWorkouts } from '../../actions/workoutActions.js'
+import { getAllWorkouts, getAllTrainerWorkouts } from '../../actions/workoutActions.js'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from '../../util/axios';
@@ -43,6 +43,8 @@ export default function ManageWorkoutTable() {
         return state.getAllWorkouts
     })
     const allWorkout = data.allWorkouts
+    const {
+        allTrainerWorkouts: { trainerWorkouts } } = useSelector((state => state))
 
     console.log(data);
     console.log("data");
@@ -57,7 +59,7 @@ export default function ManageWorkoutTable() {
     useEffect(() => {
 
         console.log("ddddd");
-        dispatch(getAllWorkouts())
+        dispatch(getAllTrainerWorkouts())
     }, [])
 
 
@@ -75,7 +77,7 @@ export default function ManageWorkoutTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {allWorkout.map((item) => (
+                    {trainerWorkouts.map((item) => (
                         <StyledTableRow key={item.workout}>
                             <StyledTableCell component="th" scope="row">
                                 {item.workout}

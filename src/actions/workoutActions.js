@@ -6,7 +6,10 @@ import {
     ALL_WORKOUTS_FAIL,
     ALL_WORKOUTS_REQUEST,
     ALL_WORKOUTS_SUCESS,
-    SINGLE_WORKOUT_RESET
+    SINGLE_WORKOUT_RESET,
+    ALL_TRAINER_WORKOUTS_REQUEST,
+    ALL_TRAINER_WORKOUTS_SUCESS,
+    ALL_TRAINER_WORKOUTS_FAIL
 } from '../constances/workoutConstants'
 
 export const singleWorkout = (workoutID) => async (dispatch) => {
@@ -60,3 +63,27 @@ export const getAllWorkouts = () => async (dispatch) => {
 
 
 
+export const getAllTrainerWorkouts = (id) => async (dispatch, getState) => {
+
+    const {
+        trainerInfo: { trainerInfo }
+    } = getState();
+    try {
+        dispatch({
+            type: ALL_TRAINER_WORKOUTS_REQUEST
+        })
+        const { data } = await axios.get(`/workout/trainer/${trainerInfo._id}`)
+        dispatch({
+            type: ALL_TRAINER_WORKOUTS_SUCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: ALL_TRAINER_WORKOUTS_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+
+    }
+}

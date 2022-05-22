@@ -1,3 +1,4 @@
+import { ALL_TRAINERS_REQUEST } from '../constances/AdminConstants'
 import {
     SINGLE_WORKOUT_FAIL,
     SINGLE_WORKOUT_REQUEST,
@@ -5,7 +6,10 @@ import {
     ALL_WORKOUTS_REQUEST,
     ALL_WORKOUTS_FAIL,
     ALL_WORKOUTS_SUCESS,
-    SINGLE_WORKOUT_RESET
+    SINGLE_WORKOUT_RESET,
+    ALL_TRAINER_WORKOUTS_REQUEST,
+    ALL_TRAINER_WORKOUTS_SUCESS,
+    ALL_TRAINER_WORKOUTS_FAIL
 } from '../constances/workoutConstants'
 
 export const workoutReducer = (state = { workout: {} }, action) => {
@@ -36,4 +40,17 @@ export const allWorkoutsReducer = (state = { allWorkouts: [] }, action) => {
     }
 
 
+}
+
+export const TrainerAllWorkouts = (state = { trainerWorkouts: [] }, { type, payload }) => {
+    switch (type) {
+        case ALL_TRAINERS_REQUEST:
+            return { ...state, loading: true }
+        case ALL_TRAINER_WORKOUTS_SUCESS:
+            return { ...state, loading: false, trainerWorkouts: payload }
+        case ALL_TRAINER_WORKOUTS_FAIL:
+            return { ...state, error: payload }
+        default:
+            return state
+    }
 }

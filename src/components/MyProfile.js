@@ -25,6 +25,7 @@ const MyProfile = () => {
     const [weight, setWeight] = useState('')
     const [photo, setPhoto] = useState(null)
     const [preview, setPreview] = useState('/images/profile/profile.jpg')
+    const [weightError, setWeightError] = useState(false)
 
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -39,9 +40,14 @@ const MyProfile = () => {
 
     const weightUpdate = async (e) => {
         e.preventDefault()
+        if (weight) {
+            dispatch(updateWeight(weight, userInfo._id))
+
+        } else {
+            setWeightError(true)
+        }
         console.log(weight);
         console.log("reaced");
-        dispatch(updateWeight(weight, userInfo._id))
     }
 
 
@@ -118,6 +124,7 @@ const MyProfile = () => {
 
                                 <TextField label={userInfo.weight} onChange={(e) => setWeight(e.target.value)} style={{ width: '80%' }} id="outlined-basic" variant="outlined" />
                             </div>
+                            {weightError && <p style={{ color: 'red' }}>Enter the weight</p>}
                             <div className='mt-4'>
 
                                 <Button type='submit' className='weight-btn' variant="contained">Weight</Button>

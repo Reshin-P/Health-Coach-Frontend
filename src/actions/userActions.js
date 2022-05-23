@@ -155,17 +155,14 @@ export const updateWeight = (weight, id) => async (dispatch, getState) => {
 //To get subcribed workouts
 
 export const getSubcribedWorkouts = (id) => async (dispatch) => {
-    console.log("reacherd reducesressfjdhkjgbfwkdshio");
 
     let userInfo = await localStorage.getItem('userInfo')
     userInfo = JSON.parse(userInfo)
-    console.log(">>>>>>>>>>>>>>>>>>>>>>", userInfo);
     dispatch({
         type: USER_SUBCRIBED_WORKOUT_REQUEST
     })
 
     try {
-        console.log("try");
 
         const config = {
             headers: {
@@ -173,10 +170,8 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         }
-        console.log(userInfo._id);
         const { data } = await axios.get(`/subcribe/${userInfo._id}`)
-        console.log(data);
-        console.log("-------data   ------");
+
         dispatch({
             type: USER_SUBCRIBED_WORKOUT_SUCCESS,
             payload: data
@@ -197,9 +192,7 @@ export const getSubcribedWorkouts = (id) => async (dispatch) => {
 export const uploadProfilePhoto = (formData, userInfo) => async (dispatch) => {
     let userInfo = await localStorage.getItem('userInfo')
     userInfo = JSON.parse(userInfo)
-    console.log(userInfo);
-    console.log("reached upload photo");
-    console.log(formData);
+
     dispatch({
         type: USER_PROFILE_PHOTO_REQUEST
     })

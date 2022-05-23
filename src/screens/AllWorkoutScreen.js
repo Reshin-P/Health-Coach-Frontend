@@ -10,7 +10,6 @@ const AllWorkoutScreen = () => {
     const { getAllWorkouts: { allWorkouts } } = useSelector((state) => {
         return state
     })
-    console.log('allWorkouts', allWorkouts);
     const [workout, setWorkout] = useState([])
 
     useEffect(() => {
@@ -18,7 +17,6 @@ const AllWorkoutScreen = () => {
         // getAllWokouts()
     }, [])
     useEffect(() => {
-        console.log("useEffect");
     }, [allWorkouts])
     return (
         <>

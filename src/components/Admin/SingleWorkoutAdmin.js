@@ -43,7 +43,6 @@ const SingleWorkoutAdmin = (props) => {
     const handleClose = () => setOpen(false);
     let { _id, workout, price, description, trainer, video, preview, isBlocked } = props.data
     const blochHandler = async () => {
-        console.log("block handler");
         dispatch(blockUnblockWorkout(_id, "block"))
         // dispatch(getAllWorkouts())
 
@@ -51,7 +50,6 @@ const SingleWorkoutAdmin = (props) => {
 
 
     const unblockhHandler = async () => {
-        console.log("unblock handler");
 
         dispatch(blockUnblockWorkout(_id, "unblock"))
         dispatch(getAllWorkouts())
@@ -157,8 +155,7 @@ const SingleWorkoutAdmin = (props) => {
                                                 },
                                             }}
                                             onLoadPaymentData={paymentRequest => {
-                                                console.log('load payment data', paymentRequest);
-                                                console.log("-------");
+
                                                 makepayment(paymentRequest)
 
                                             }}

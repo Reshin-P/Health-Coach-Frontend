@@ -40,7 +40,6 @@ const AcceptTrainerScreen = () => {
         dispatch(acceptTrainers(id))
     }
     const rejectHandler = async () => {
-        console.log("reached reject handler");
     }
 
 

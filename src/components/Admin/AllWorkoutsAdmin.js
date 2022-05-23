@@ -9,15 +9,13 @@ const AllWorkoutsAdmin = () => {
     const { getAllWorkouts: { allWorkouts } } = useSelector((state) => {
         return state
     })
-    console.log('allWorkouts', allWorkouts);
     const [workout, setWorkout] = useState([])
 
     useEffect(() => {
         dispatch(getAllWorkouts())
-        // getAllWokouts()
+
     }, [])
     useEffect(() => {
-        console.log("useEffect");
     }, [allWorkouts])
     return (
         <>

@@ -76,14 +76,12 @@ function createData(name, code, population, size) {
 
 const ManagePrograms = () => {
     const { programList: { programs, loading, error } } = useSelector(state => state)
-    console.log(programs);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(listprograms())
     }, [])
     const alluser = []
     const deleteHandler = async (id) => {
-        console.log(id);
         dispatch(deleteProgram(id))
     }
 

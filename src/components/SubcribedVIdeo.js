@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player'
 const SubcribedVIdeo = () => {
     const dispatch = useDispatch()
     const params = useParams()
-    console.log(params.id);
     let workoutdata = useSelector((state) => {
         return state.singleWorkout
     })

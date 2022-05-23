@@ -361,7 +361,6 @@ export const deleteProgram = (id) => async (dispatch, getState) => {
             type: DELETE_PROGRAM_SUCCESS,
             payload: data
         })
-        console.log(id);
         dispatch({
             type: PROGRAM_SUCESS,
             payload: programs.filter(program => {
@@ -383,7 +382,6 @@ export const deleteProgram = (id) => async (dispatch, getState) => {
 // ADD BANNER
 
 export const addBanner = (formData) => async (dispatch, getState) => {
-    console.log("reaqche acrions");
     dispatch({
         type: ADD_BANNER_REQUEST
     })

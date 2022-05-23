@@ -20,7 +20,6 @@ const HomeScreen = () => {
   const { banner: { Banner, bannerLoading, bannerError } } = useSelector(state => state)
   const { loading, error, programs } = programList
   const [trainers, setTrainers] = useState([])
-  console.log(Banner);
   useEffect(() => {
 
     dispatch(listprograms())
@@ -30,9 +29,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      console.log("==");
       const { data } = await axios.get('/trainers')
-      console.log(data);
       setTrainers(data)
     }
     fetch()

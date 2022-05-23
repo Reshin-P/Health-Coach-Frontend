@@ -1,6 +1,5 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-// import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from '../components/Header';
 import WorkoutDescription from "../components/WorkoutDescription";
@@ -9,7 +8,6 @@ import WorkoutVideo from "../components/WorkoutVideo";
 
 
 const WorkoutDetailsScreen = () => {
-    // const params = useParams()
     return (
         <>
             <Header />

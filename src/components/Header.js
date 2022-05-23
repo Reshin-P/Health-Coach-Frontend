@@ -27,11 +27,10 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {
 
-    console.log("------------//\\\\------->>>>");
+
 
 
   }, [])
-  console.log(userInfo);
 
 
 

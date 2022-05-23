@@ -44,15 +44,12 @@ const ProgramWiseWorkouts = (props) => {
     const handleClose = () => setOpen(false);
     let { _id, workout, price, description, trainer, video, preview, isBlocked } = props.data
     const blochHandler = async () => {
-        console.log("block handler");
         dispatch(blockUnblockWorkout(_id, "block"))
-        // dispatch(getAllWorkouts())
 
     }
 
 
     const unblockhHandler = async () => {
-        console.log("unblock handler");
 
         dispatch(blockUnblockWorkout(_id, "unblock"))
         dispatch(getAllWorkouts())
@@ -76,7 +73,7 @@ const ProgramWiseWorkouts = (props) => {
                 </Col>
                 <Col md={2} sm={12} className='program-Right'>
                     <div className='ml-4'>
-                        <Button onClick={handleOpen} variant="contained">View</Button>
+                        <Link style={{ textDecorationLine: 'none' }} to={`/workout/${_id}`}>  <Button onClick={handleOpen} variant="contained">View</Button></Link>
 
                         <h1>₹{price}</h1>
                         {/* {isBlocked ? <Button color='warning' onClick={unblockhHandler} variant="contained">unBlock</Button>
@@ -158,8 +155,7 @@ const ProgramWiseWorkouts = (props) => {
                                                 },
                                             }}
                                             onLoadPaymentData={paymentRequest => {
-                                                console.log('load payment data', paymentRequest);
-                                                console.log("-------");
+
                                                 makepayment(paymentRequest)
 
                                             }}

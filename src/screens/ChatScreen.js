@@ -23,19 +23,11 @@ const ChatScreen = () => {
     })
 
     const getReciver = async () => {
-        console.log(reciverInfo);
         const { data } = await axios.get(`/message/receiver/${params.receiver}`)
-        console.log(data);
         setReciverInfo(data)
-        console.log("====");
-
-        // if (reciverInfo.profilephoto) {
-        //     setReciverPhoto(reciverInfo.profilephoto)
-        // }
     }
     useEffect(() => {
         if (reciverInfo) {
-            console.log(reciverInfo);
             setReciverPhoto(reciverInfo.profilephoto)
         }
     }, [reciverInfo])
@@ -77,7 +69,6 @@ const ChatScreen = () => {
 
 
     const createconversation = async () => {
-        console.log("conversation creareions");
 
         const chat = {
             sender: params.sender,
@@ -85,17 +76,14 @@ const ChatScreen = () => {
         }
         try {
             const { data } = await axios.post('/conversation', chat)
-            console.log(data);
             setConversation(data)
 
         } catch (error) {
-
             console.log(error);
         }
     }
 
     const sendMessage = () => {
-        console.log("send messge");
         Socket.current.emit("sendMessage", {
             senderId: params.sender,
             reciverId: params.receiver,

@@ -20,10 +20,7 @@ const AddProgramForm = () => {
     useEffect(() => {
 
     }, [loading])
-    console.log("program", program);
     const FormSubmit = async (data) => {
-        console.log(data.name);
-        console.log(data.image);
         const formData = new FormData()
         formData.set('name', data.name)
         formData.set('image', data.image[0])

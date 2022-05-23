@@ -10,7 +10,6 @@ const AdminMangeWorkouts = () => {
     const { adminAllWorkouts: { adminAllWorkouts } } = useSelector((state) => {
         return state
     })
-    console.log("adminAllWorkouts", adminAllWorkouts);
     useEffect(() => {
         dispatch(getAllWorkoutsAdmin())
     }, [])

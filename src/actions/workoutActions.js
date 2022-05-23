@@ -13,7 +13,6 @@ import {
 } from '../constances/workoutConstants'
 
 export const singleWorkout = (workoutID) => async (dispatch) => {
-    console.log("fdfdfd");
     try {
         dispatch({
             type: SINGLE_WORKOUT_REQUEST

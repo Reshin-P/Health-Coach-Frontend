@@ -23,8 +23,6 @@ function AdminLogin() {
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
     const FormSubmit = async (input) => {
-        console.log("dfddfd");
-        console.log(input);
         dispatch(AdminLoginForm(input))
         navigate('/admin')
     }

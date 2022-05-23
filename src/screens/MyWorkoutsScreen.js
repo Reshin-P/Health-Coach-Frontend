@@ -1,17 +1,23 @@
 import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
-import Footer from '../components/Footer'
-import Myworkoutsingle from '../components/Myworkoutsingle'
-import Wsample from './Wsample.js'
 import { useDispatch, useSelector } from 'react-redux'
-import Header from '../components/Header'
+import { useNavigate } from 'react-router-dom'
 import { getSubcribedWorkouts } from '../actions/userActions'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import Myworkoutsingle from '../components/Myworkoutsingle'
 const MyWorkoutsScreen = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { subcribedworkouts } = useSelector((state) => state.subcribe)
-  console.log("subcribedworkouts");
-  console.log(subcribedworkouts);
-  console.log("subcribedworkouts");
+  const { user: { userInfo } } = useSelector((state) => {
+    return state
+  })
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login')
+    }
+  }, [])
   useEffect(() => {
     dispatch(getSubcribedWorkouts())
   }, [])

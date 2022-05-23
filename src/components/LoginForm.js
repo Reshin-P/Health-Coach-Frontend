@@ -1,13 +1,11 @@
-import React from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { TextField, Button, Grid, Paper } from "@mui/material"
-import { Link, useNavigate } from 'react-router-dom'
-import axios from '../util/axios'
+import { Button, Grid, Paper, TextField } from "@mui/material";
 import Alert from '@mui/material/Alert';
-import './LoginForm.css'
-import {useDispatch,useSelector} from 'react-redux'
-import {loginForm} from '../actions/userActions'
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginForm } from '../actions/userActions';
+import './LoginForm.css';
 
  
 
@@ -25,13 +23,16 @@ function Login() {
     const { username, password } = login
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+
+    useEffect(()=>{
+        if(sucess){
+  
+            navigate('/')
+        }
+    },[sucess])
     const FormSubmit = async (input) => {
         dispatch(loginForm(login))
-
-   if(sucess){
-  
-       navigate('/')
-   }
+    
    
     }
     const avatarStyle = { backgroundColor: 'green' }

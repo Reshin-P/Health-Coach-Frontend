@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { singleWorkout } from '../actions/workoutActions';
-import { updateProductReset } from '../actions/workoutActions'
-import './WorkoutVideo.css';
-import PaymentScreen from '../screens/PaymentScreen'
-import { Link } from 'react-router-dom';
+import GooglePayButton from '@google-pay/button-react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import './PaymentScreen.css'
-import StripeCheckout from 'react-stripe-checkout'
-import axios from '../util/axios'
-import GooglePayButton from '@google-pay/button-react'
+import ReactPlayer from 'react-player';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { singleWorkout, updateProductReset } from '../actions/workoutActions';
+import axios from '../util/axios';
+import './PaymentScreen.css';
+import './WorkoutVideo.css';
 
 
 
@@ -45,9 +41,7 @@ const WorkoutVideo = () => {
   const { user: { userInfo } } = useSelector((state) => {
     return state
   })
-  console.log("////////////////");
-  console.log(userInfo);
-  console.log("////////////////");
+
 
   useEffect(() => {
     dispatch(singleWorkout(params.id))
@@ -75,45 +69,16 @@ const WorkoutVideo = () => {
     };
     try {
       const response = await axios.post('/payment', body, config)
-      console.log(response);
       if (response.status == 200) {
-        console.log(response.data);
         navigate('/')
 
       }
     } catch (error) {
-      console.log("error");
-      console.log(error);
+
     }
 
   }
-  // const makepayment = async token => {
-  //   console.log("makepayment");
-  //   console.log(token);
-  //   const body = {
-  //     token,
-  //     item
-  //   }
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${userInfo.token}`,
-  //     },
-  //   };
-  //   try {
-  //     const response = await axios.post('/payment', body, config)
-  //     console.log(response);
-  //     if (response.status == 200) {
-  //       console.log(response.data);
-  //       navigate('/')
 
-  //     }
-  //   } catch (error) {
-  //     console.log("error");
-  //     console.log(error);
-  //   }
-
-  // }
 
   return (
     <>
@@ -131,7 +96,7 @@ const WorkoutVideo = () => {
               <h4 className='mt-5'>Trainer : John </h4>
               <div className='price'>
                 <h3 className='mt-5'>Price : {price}</h3>
-                <GooglePayButton
+                {userInfo ? <GooglePayButton
                   environment="TEST"
                   paymentRequest={{
                     apiVersion: 2,
@@ -165,15 +130,15 @@ const WorkoutVideo = () => {
                     },
                   }}
                   onLoadPaymentData={paymentRequest => {
-                    console.log('load payment data', paymentRequest);
-                    console.log("-------");
+
                     makepayment(paymentRequest)
 
                   }}
                   onError={(err) => {
                     console.log(err);
                   }}
-                />
+                /> : <Link to={'/login'}>   <Button style={{ color: 'black', backgroundColor: 'white', height: '50px', textDecorationLine: 'none' }}>Login To Buy</Button></Link>
+                }
               </div>
               <div>
 

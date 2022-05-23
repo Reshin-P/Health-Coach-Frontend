@@ -79,7 +79,6 @@ export default function ManageTrainerScreen() {
     const { getAlltrainers: { trainers } } = useSelector((state) => {
         return state
     })
-    console.log("trainers", trainers);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllTrainers())
@@ -100,8 +99,7 @@ export default function ManageTrainerScreen() {
 
 
     const blockHandler = async (id) => {
-        console.log("id", id);
-        console.log("block");
+
         dispatch(blockUnblockTrainers(id, "block"))
     }
 

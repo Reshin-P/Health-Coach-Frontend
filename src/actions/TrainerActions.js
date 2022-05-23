@@ -98,7 +98,6 @@ export const LogoutTrainer = () => async (dispatch) => {
 //To upoad profile photo
 
 export const uploadProfilePhoto = (formData) => async (dispatch, getState) => {
-    console.log(">>>>>>>");
     const {
         trainerInfo: { trainerInfo }
     } = getState();
@@ -205,7 +204,6 @@ export const getSubcribedUsers = (tranerId) => async (dispatch, getState) => {
     try {
 
         const { data } = await axios.get(`/trainers/getusers/${tranerId}`, config)
-        console.log("data>>>>>>>>>>>", data);
         dispatch({
             type: SUBCRIBED_USERS_SUCCESS,
             payload: data
@@ -256,16 +254,13 @@ export const getTrainerWorkouts = (trainerID) => async (dispatch) => {
         type: TRAIENR_WORKOUTS_REQUEST
     })
     try {
-        console.log("try");
 
         const { data } = await axios.get(`workout/trainer/${trainerID}`)
-        console.log("data", data);
         dispatch({
             type: TRAIENR_WORKOUTS_SUCCESS,
             payload: data
         })
     } catch (error) {
-        console.log(error.response.data.message);
         dispatch({
             type: SINGLE_TRAINER_FAIL,
             payload: error.response && error.response.data.message

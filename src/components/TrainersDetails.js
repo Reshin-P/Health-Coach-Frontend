@@ -15,7 +15,6 @@ const TrainersDetails = () => {
   const { singleTrainer: { singleTrainer, loading, error } } = useSelector((state) => {
     return state
   })
-  console.log("singleTrainer,", singleTrainer);
   const { trainerWorkout: { trainerWorkouts, workoutLoading, errors } } = useSelector((state) => {
     return state
   })

@@ -35,13 +35,11 @@ function TrainerLogin() {
         if (trainer) {
             navigate('/trainer')
         }
-        console.log("sucess", sucess);
         if (sucess) {
 
             navigate('/trainer')
         }
         if (sucess) {
-            console.log("sucess inde");
             navigate('/trainer')
         }
     }, [sucess])
@@ -50,8 +48,7 @@ function TrainerLogin() {
 
     const FormSubmit = async (input) => {
         dispatch(trainerLoginAction(username, password))
-        console.log("---------");
-        console.log(sucess);
+
 
     }
 
@@ -64,7 +61,7 @@ function TrainerLogin() {
                 <Paper elevation={10} style={paperStyle}>
                     <Grid><center>
 
-                        <h2> Sign In</h2>
+                        <h2 style={{ fontFamily: 'sans-serif' }}> Trainer Sign In</h2>
                         <p>{mailError}</p>
                         <p>{passwordError}</p>
                     </center>

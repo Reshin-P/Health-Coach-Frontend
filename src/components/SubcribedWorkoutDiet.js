@@ -16,8 +16,7 @@ const SubcribedWorkoutDiet = () => {
         return state.singleWorkout
     })
     const { loading, workout } = workoutdata
-    console.log("-----------------------------------");
-    console.log(workout);
+
 
     useEffect(() => {
         dispatch(singleWorkout(params.id))

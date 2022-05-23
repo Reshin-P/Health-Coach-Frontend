@@ -128,13 +128,12 @@ const ManageSingleWorkout = (props) => {
                                                 },
                                             }}
                                             onLoadPaymentData={paymentRequest => {
-                                                console.log('load payment data', paymentRequest);
-                                                console.log("-------");
+
                                                 makepayment(paymentRequest)
 
                                             }}
                                             onError={(err) => {
-                                                console.log(err);
+
                                             }}
                                         />
 

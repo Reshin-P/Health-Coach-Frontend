@@ -30,14 +30,18 @@ const MyProfile = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { user: { userInfo } } = useSelector((state) => {
-        return state
-    })
     const { profilePhoto: { userprofilePhoto, loadingphoto, photosucess } } = useSelector((state) => { return state })
 
     const { Weightsuccess } = useSelector((state) => state.updateweight)
     const { loading, error, success, message } = useSelector((state) => state.updateuser)
-
+    const { user: { userInfo } } = useSelector((state) => {
+        return state
+    })
+    useEffect(() => {
+        if (!userInfo) {
+            navigate('/login')
+        }
+    }, [])
     const weightUpdate = async (e) => {
         e.preventDefault()
         if (weight) {
@@ -46,19 +50,12 @@ const MyProfile = () => {
         } else {
             setWeightError(true)
         }
-        console.log(weight);
-        console.log("reaced");
     }
 
 
     useEffect(() => {
-        console.log("useeffect");
-        if (!userInfo) {
-            navigate('/login')
-        }
-        console.log(userInfo);
+
         if (userInfo.profilephoto) {
-            console.log("profile unde");
             setPreview(userInfo.profilephoto)
         }
 
@@ -75,9 +72,6 @@ const MyProfile = () => {
 
     const uploadPhoto = async (e) => {
         e.preventDefault()
-        console.log("dfdfd");
-        console.log(photo);
-
         const formData = new FormData()
         formData.append('photo', photo)
 

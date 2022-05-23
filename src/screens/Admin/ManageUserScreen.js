@@ -79,7 +79,6 @@ export default function ManageUserScreen() {
     const { allusers: { alluser } } = useSelector((state) => {
         return state
     })
-    console.log("alluser", alluser);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllUsers())
@@ -100,7 +99,6 @@ export default function ManageUserScreen() {
 
 
     const blockHandler = async (id) => {
-        console.log(id);
         dispatch(blockUnblockUsers(id, "block"))
     }
 

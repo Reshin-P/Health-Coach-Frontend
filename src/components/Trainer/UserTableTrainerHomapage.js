@@ -49,7 +49,6 @@ export default function UserTableTrainerHomapage() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log("useEffect");
 
         let trainerInfo = localStorage.getItem("trainer")
         if (trainerInfo) {

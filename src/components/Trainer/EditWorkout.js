@@ -60,7 +60,6 @@ const EditWorkout = () => {
         // formData.append('preview',data.preview)
 
         const response = await axios.put(`/workout/${params.id}`, data, config)
-        console.log(response);
         if (response) {
             navigate('/trainer')
         }

@@ -46,19 +46,13 @@ export default function ManageWorkoutTable() {
     const {
         allTrainerWorkouts: { trainerWorkouts } } = useSelector((state => state))
 
-    console.log(data);
-    console.log("data");
-    console.log(allWorkout);
-    console.log("data");
 
 
     const deleteHandler = async (id) => {
-        console.log(id);
         const response = await axios.delete(`/workout/${id}`)
     }
     useEffect(() => {
 
-        console.log("ddddd");
         dispatch(getAllTrainerWorkouts())
     }, [])
 

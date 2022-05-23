@@ -29,6 +29,8 @@ import AcceptTrainerScreen from "./screens/Admin/AcceptTrainerScreen";
 import TrainerSignupScreen from "./screens/Trainer/TrainerSignupScreen";
 import TrainerProfileScreen from "./screens/Trainer/TrainerProfileScreen";
 import TrainerHomepageScreen from "./screens/Trainer/TrainerHomepageScreen";
+import AddBannerScreen from "./screens/Admin/AddBannerScreen";
+import AllWorkoutsAdmin from "./components/Admin/AllWorkoutsAdmin";
 function App() {
   return (
 
@@ -49,6 +51,7 @@ function App() {
         <Route path="/myworkouts" element={<MyWorkoutsScreen />} />
         <Route path="/adminlogin" element={<AdminLoginScreen />} />
         <Route path="/manageworkouts" element={<ManageWorkout />} />
+        <Route path="/workoutadmin" element={<AllWorkoutsAdmin />} />
         <Route path="/manageprograms" element={<ManagePrograms />} />
         <Route path="/trainer" element={<TrainerHomepageScreen />} />
         <Route path="/programs/:id" element={<ProgramWiseScreen />} />
@@ -63,6 +66,7 @@ function App() {
         <Route path="/editWorkout/:id" element={<WorkoutEditScreen />} />
         <Route path="/AddWorkoutScreen" element={<AddWorkoutScreen />} />
         <Route path="/trainerprofile" element={<TrainerProfileScreen />} />
+        <Route path="/addbanner" element={<AddBannerScreen />} />
 
       </Routes>
     </BrowserRouter>

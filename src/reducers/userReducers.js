@@ -16,7 +16,10 @@ import {
     USER_PROFILE_PHOTO_REQUEST,
     USER_PROFILE_PHOTO_SUCESS,
 
-    USER_PROFILE_PHOTO_FAIL
+    USER_PROFILE_PHOTO_FAIL,
+    BANNER_REQUEST,
+    BANNER_SUCCESS,
+    BANNER_FAIL
 } from '../constances/UserConstants'
 
 
@@ -130,4 +133,19 @@ export const uploadProfilePhoto = (state = { userprofilePhoto: {} }, { type, pay
             return state
     }
 
+}
+
+//TO GET BANNER
+
+export const getBanner = (state = { Banner: {} }, { type, payload }) => {
+    switch (type) {
+        case BANNER_REQUEST:
+            return { ...state, bannerLoading: true }
+        case BANNER_SUCCESS:
+            return { ...state, bannerLoading: false, Banner: payload }
+        case BANNER_FAIL:
+            return { ...state, bannerLoading: false, bannerError: payload }
+        default:
+            return state
+    }
 }

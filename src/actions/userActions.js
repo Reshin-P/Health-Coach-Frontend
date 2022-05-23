@@ -16,7 +16,10 @@ import {
     USER_SUBCRIBED_WORKOUT_FAIL,
     USER_PROFILE_PHOTO_REQUEST,
     USER_PROFILE_PHOTO_SUCESS,
-    USER_PROFILE_PHOTO_FAIL
+    USER_PROFILE_PHOTO_FAIL,
+    BANNER_REQUEST,
+    BANNER_SUCCESS,
+    BANNER_FAIL
 } from '../constances/UserConstants'
 
 
@@ -226,5 +229,27 @@ export const uploadProfilePhoto = (formData, userInfo) => async (dispatch) => {
                 : error.message
         })
 
+    }
+}
+
+//TO GET BANNER
+
+export const getBanners = () => async (dispatch) => {
+    dispatch({
+        type: BANNER_REQUEST
+    })
+    try {
+        const { data } = await axios.get('/banner')
+        dispatch({
+            type: BANNER_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: BANNER_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.data.message
+                : error.message
+        })
     }
 }

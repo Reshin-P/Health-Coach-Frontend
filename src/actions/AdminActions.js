@@ -34,7 +34,10 @@ import {
     ADD_PROGRAM_SUCESS,
     DELETE_PROGRAM_REQUEST,
     DELETE_PROGRAM_SUCCESS,
-    DELETE_PROGRAM_FAIL
+    DELETE_PROGRAM_FAIL,
+    ADD_BANNER_REQUEST,
+    ADD_BANNER_SUCESS,
+    ADD_BANNER_FAIL
 }
     from '../constances/AdminConstants'
 import { PROGRAM_SUCESS } from '../constances/programConstants'
@@ -365,13 +368,43 @@ export const deleteProgram = (id) => async (dispatch, getState) => {
                 if (program._id !== id) {
                     return program
                 }
-
-
             })
         });
     } catch (error) {
         dispatch({
             type: DELETE_PROGRAM_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+// ADD BANNER
+
+export const addBanner = (formData) => async (dispatch, getState) => {
+    console.log("reaqche acrions");
+    dispatch({
+        type: ADD_BANNER_REQUEST
+    })
+
+    const { adminVerify: { adminInfo }, programList: { programs } } = getState();
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminInfo.token}`,
+        },
+    }
+    try {
+        const { data } = await axios.post('/banner', formData, config)
+        dispatch({
+            type: ADD_BANNER_SUCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: ADD_BANNER_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

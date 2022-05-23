@@ -46,7 +46,7 @@ const SidePanel = () => {
                         <div className='tools'>
                             <div className='tool2'>
                                 <AccessibilityNewIcon />
-                                <LinkContainer to={'/workout'}>
+                                <LinkContainer to={'/workoutadmin'}>
                                     <p className='tool-name'>Workouts</p>
                                 </LinkContainer>
                             </div>
@@ -84,7 +84,7 @@ const SidePanel = () => {
                         </div>
 
                         {bannershow && <div className='hide'>
-                            <LinkContainer to={'/addprograms'}><h5>Add Programs</h5></LinkContainer>
+                            <LinkContainer to={'/addbanner'}><h5>Add bannershow</h5></LinkContainer>
                             <h5>Manage Banner</h5>
 
                         </div>}

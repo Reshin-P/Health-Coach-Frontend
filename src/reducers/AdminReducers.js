@@ -33,7 +33,10 @@ import {
     ADMIN_LOGOUT,
     DELETE_PROGRAM_REQUEST,
     DELETE_PROGRAM_SUCCESS,
-    DELETE_PROGRAM_FAIL
+    DELETE_PROGRAM_FAIL,
+    ADD_BANNER_REQUEST,
+    ADD_BANNER_SUCESS,
+    ADD_BANNER_FAIL
 } from '../constances/AdminConstants'
 
 
@@ -216,6 +219,21 @@ export const deleteProgramReducer = (state = { deletedProgram: '' }, { type, pay
             return { ...state, loading: false, deletedProgram: payload }
         case DELETE_PROGRAM_FAIL:
             return { ...state, loading: false, errors: payload }
+        default:
+            return state
+    }
+}
+
+//TO ADD BANNER
+
+export const addBannerReducer = (state = { banner: {} }, { type, payload }) => {
+    switch (type) {
+        case ADD_BANNER_REQUEST:
+            return { ...state, loading: true }
+        case ADD_BANNER_SUCESS:
+            return { ...state, loading: false, bannerSucess: true, banner: payload }
+        case ADD_BANNER_FAIL:
+            return { ...state.banner, loading: false, error: payload }
         default:
             return state
     }

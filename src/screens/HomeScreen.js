@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { listprograms } from '../actions/programActions';
+import { getBanners } from '../actions/userActions'
 import Currosal from "../components/Currosal";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -16,12 +17,14 @@ import axios from '../util/axios.js';
 const HomeScreen = () => {
   const dispatch = useDispatch()
   const programList = useSelector(state => state.programList)
+  const { banner: { Banner, bannerLoading, bannerError } } = useSelector(state => state)
   const { loading, error, programs } = programList
   const [trainers, setTrainers] = useState([])
-  const [userData, setUserdata] = useState({})
+  console.log(Banner);
   useEffect(() => {
 
     dispatch(listprograms())
+    dispatch(getBanners())
 
   }, [dispatch])
 

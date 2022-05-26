@@ -1,6 +1,5 @@
 {
   "name": "frontend-react",
-  "proxy":"http://34.226.196.130",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

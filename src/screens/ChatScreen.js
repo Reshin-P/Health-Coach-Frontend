@@ -41,7 +41,7 @@ const ChatScreen = () => {
     }, [message]);
 
     useEffect(() => {
-        Socket.current = io("http://34.226.196.130")
+        Socket.current = io("http://54.90.236.103")
         Socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,

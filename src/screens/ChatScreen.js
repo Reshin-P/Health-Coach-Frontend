@@ -41,7 +41,7 @@ const ChatScreen = () => {
     }, [message]);
 
     useEffect(() => {
-        Socket.current = io("https://eshopee.online")
+        Socket.current = io("https://urbanclassic.online")
         Socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
